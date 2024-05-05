@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   Outlet,
+  createHashRouter,
   RouterProvider,
   useLoaderData,
 } from "react-router-dom";
@@ -25,7 +26,7 @@ const p1App = <App my_data={my_data}/>;
 const p3App = <P3YourFoodInfo my_data={my_data}/>
 
 
-const router = createBrowserRouter([
+const router = createHashRouter([
       {
         path: "/",
         id: 'p1',
@@ -51,9 +52,9 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 
