@@ -11,10 +11,10 @@ import {
 
 import './index.css';
 // import App from './App';
-import App from './routes/p1';
-import {P2YourPetInfo, petinfo_form_callback} from './routes/p2';
-import {P3YourFoodInfo, dietinfo_form_callback} from './routes/p3';
-import {P4Results, loader} from './routes/p4';
+import App from './routes/Main';
+import {PetInfo, PetInfo_Form_Callback} from './routes/PetInfo';
+import {DietInfo, Diet_Form_Callback} from './routes/DietInfo';
+import {Results, loader} from './routes/Results';
 
 import reportWebVitals from './reportWebVitals';
 // import { action } from './routes/p2';
@@ -23,7 +23,7 @@ import reportWebVitals from './reportWebVitals';
 
 const my_data = {'test2':'foo'}
 const p1App = <App my_data={my_data}/>;
-const p3App = <P3YourFoodInfo my_data={my_data}/>
+const p3App = <DietInfo my_data={my_data}/>
 
 
 const router = createHashRouter([
@@ -33,18 +33,18 @@ const router = createHashRouter([
         element: p1App,
       },
       {
-        path: "P2YourPetInfo",
-        element: <P2YourPetInfo />,
-        action: petinfo_form_callback,
+        path: "PetInfo",
+        element: <PetInfo/>,
+        action: PetInfo_Form_Callback,
       },
       {
-        path: "P3YourFoodInfo",
-        element: <P3YourFoodInfo/>,
-        action: dietinfo_form_callback,
+        path: "DietInfo",
+        element: <DietInfo/>,
+        action: Diet_Form_Callback,
       },
       {
-        path: "P4Results",
-        element: <P4Results/>,
+        path: "Results",
+        element: <Results/>,
         loader: loader,
       },
 ]);
