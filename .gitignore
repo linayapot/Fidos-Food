@@ -1,0 +1,7 @@
+# node
+build
+.cache
+node_modules
+
+# mac
+.DS_Store
