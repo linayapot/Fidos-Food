@@ -1,10 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Form,
-  useLoaderData,
-  redirect
-} from "react-router-dom";
+import {Form,redirect} from "react-router-dom";
 import logo from '../logo.svg';
 import '../App.css';
 import localforage from "localforage";
@@ -20,19 +14,18 @@ async function Diet_Form_Callback({ request, params }) {
   return redirect(`/Results`);
 }
 
-//to allow decimal places into form
-
-
-// function DietInfo() {
-export default function DietInfo() {    
+export default function DietInfo() {
+      
   const [inputFields, setInputFields] = useState([]);
 
+  //creates the rows to be generated after a change occurs in the drop down box
   const handleSelectChange = (e) => {
     const selectedOption = e.target.value;
     const newInputFields = [...inputFields, selectedOption];
     setInputFields(newInputFields);
   };
 
+  //allows users to delete the added rows
   const handleDeleteInput = (index) => {
     const newInputFields = [...inputFields];
     newInputFields.splice(index, 1);
@@ -40,57 +33,61 @@ export default function DietInfo() {
   };
 
 
-    return (
+  return (
     <div className="App">
-      <img src={logo} className="App-logo" alt="logo" />
+    <img src={logo} className="App-logo" alt="logo" />
       <div className="first-header">
-        Enter The Diet Info
+        Diet Info: Daily Intake
       </div>
+      * indicates mandatory information
 
-     <Form method="post" id="dietinfo">
-     <ul class="flex-outer">
-        <li>
-          <label for="amountAF">Daily Intake of Food:  </label>
-          <input required 
-            id= "amountAF"
-            aria-label="Daily Amount of Food"
-            type="number"
-            name="amountAF"              
-            min="0"
-            defaultValue={300}
-          />
-        </li>
-        <li>
-          <p>Units:</p>
-            <ul class="flex-inner">
-              <li>
-              <input type="radio" name="unit" id="g" value="g" defaultChecked={true}/>
-                <label htmlFor="g"> g </label> 
-              </li>
-              <li>
-                <input type="radio" name="unit" id="oz" value="oz"/>
-                <label htmlFor="oz"> oz </label>
-              </li>
-            </ul>
-        </li>
-      </ul>
-        {/* --------------------------------- */}
-      <br></br>
-      Pet Food Info: Mandatory Information 
-
-      <ul class="flex-outer">
-        <li>
-          <label for="kcal">Calorie (kcal/kg): </label>
+      <Form method="post" id="dietinfo">
+        <ul class="flex-outer">
+          <li>
+            <label for="amountAF">Daily Intake of Food:  </label>
             <input required 
-              id="kcal"
-              aria-label="The caloric density of the food"
+              id= "amountAF"
+              aria-label="Daily Amount of Food"
               type="number"
-              name="kcal"
+              name="amountAF"              
               min="0"
-              defaultValue={3500}/>
-        </li>
-        <li>
-            <label for="moisture">Max Moisture (%):  </label>
+              defaultValue={300}
+            />
+          </li>
+        {/* --------------------------------- */}
+          <li>
+            <p>Units:</p>
+              <ul class="flex-inner">
+                <li>
+                  <input type="radio" name="unit" id="g" value="g" defaultChecked={true}/>
+                  <label htmlFor="g"> g </label> 
+                </li>
+                <li>
+                  <input type="radio" name="unit" id="oz" value="oz"/>
+                  <label htmlFor="oz"> oz </label>
+                </li>
+              </ul>
+          </li>
+        </ul>
+      {/* --------------------------------- */}
+      <div className="first-header">
+        Diet Info: Pet Food Info
+      </div>
+      {/* --------------------------------- */}
+        <ul class="flex-outer">
+          <li>
+            <label for="kcal">Calorie* (kcal/kg): </label>
+              <input required 
+                id="kcal"
+                aria-label="The caloric density of the food"
+                type="number"
+                name="kcal"
+                min="0"
+                defaultValue={3500}
+              />
+          </li>
+          <li>
+            <label for="moisture">Max Moisture* (%):  </label>
             <input required 
               id="moisture"
               aria-label="Maximum amount of moisture"
@@ -98,10 +95,11 @@ export default function DietInfo() {
               name="moisture"
               min="0"
               max="99"
-              defaultValue={10}/>
+              defaultValue={10}
+            />
           </li>
           <li>
-            <label for="cp">Min Crude Protein (%):  </label>
+            <label for="cp">Min Crude Protein* (%):  </label>
             <input required 
               id="cp"
               aria-label="Minimum amount of crude protein"
@@ -109,10 +107,11 @@ export default function DietInfo() {
               name="cp"
               min="0"
               max="99"
-              defaultValue={18}/>
+              defaultValue={18}
+            />
           </li>
           <li>
-            <label for="tfat">Min  Crude Fat (%):  </label>
+            <label for="tfat">Min  Crude Fat* (%):  </label>
             <input required 
               id="tfat"
               aria-label="Mnimum amount of crude fat"
@@ -120,10 +119,11 @@ export default function DietInfo() {
               name="tfat"
               min="0"
               max="99"
-              defaultValue={10}/>
+              defaultValue={10}
+            />
           </li>
           <li>
-            <label for="fibre">Max Crude Fibre (%):  </label>
+            <label for="fibre">Max Crude Fibre* (%):  </label>
             <input required
               id="fibre" 
               aria-label="Minimum amount of crude fibre"
@@ -131,40 +131,40 @@ export default function DietInfo() {
               name="fibre"
               min="0"
               max="99"
-              defaultValue={15}/>
+              defaultValue={15}
+            />
           </li>
-      </ul>
-      <br></br>
-      Pet Food Info: Optional Information
-      <br></br>
-      Select any additional nutrient included on your guaranteed analysis using the drop down menu. 
-      <br></br>
-      <select class="selectBox" onChange={handleSelectChange}>
-        <option value="Calcium (%):">Calcium</option>
-        <option value="Phosphorous(%):">Phosphorous</option>
-      </select>
-      <ul class="flex-outer">
-        {inputFields.map((label, index) => (
-          <li key={index}>
-            <label>{label}</label>
-            <input type="text" />
-            <button onClick={() => handleDeleteInput(index)}>X</button>
-          </li>
-        ))}
-      </ul>
+        </ul>
+        <br></br>
+        Select any additional nutrient included on your guaranteed analysis using the drop down menu. 
+        <br></br>
+        <br></br>
 
-    <ul class="flex-outer">
-      <li>
-        <button type="submit">Submit</button>  
-      </li> 
-    </ul>    
+        <select class="selectBox" onChange={handleSelectChange}>
+          <option value="Calcium (%):">Calcium</option>
+          <option value="Phosphorous(%):">Phosphorous</option>
+        </select>
+        
+        <ul class="flex-outer">
+          {inputFields.map((label, index) => (
+            <li key={index}>
+              <label>{label}</label>
+              <input type="text" />
+              <button onClick={() => handleDeleteInput(index)}>X</button>
+            </li>
+          ))}
+        </ul>
+
+      <ul class="flex-outer">
+        <li>
+          <button type="submit">Submit</button>  
+        </li> 
+      </ul>    
 
     </Form>
   </div>
   
-  );
-
+);
 }
-
 
 export {Diet_Form_Callback, DietInfo};

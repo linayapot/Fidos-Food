@@ -22,9 +22,7 @@
 }
 
 
-
 .first-header {
-
   min-height: 5vh;
   display: flex;
   align-items: center;
@@ -32,155 +30,113 @@
   font: normal 15x/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
   font-size: calc(8px + 2vmin);
   text-transform: uppercase;
-  padding-bottom: 20pt;
   padding-top: 20pt;
-
-
 }
 
 .second-header {
-
-
   display: flex;
   align-items: center;
   justify-content: center;
   font: normal 15x/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
   font-size: calc(6px + 2vmin);
   padding-bottom: 20pt;
-
-
 }
 
 
 
+body {
+  font: normal 15x/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
+  background: #929494;
+  color: #ece2e2;
+  padding: 50px 0;
+  text-align: left;
+  display: grid;
+  place-items: center;
+  margin-bottom: 10px;
+}
+/*formating for input boxes */
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
 
-.tables {
-  background-color: #929494;
-  padding: 2%;
+.container * {
+  box-sizing: border-box;
+}
+
+.flex-outer,
+.flex-inner {
+  list-style-type: none;
+  padding: 0;
+
+}
+
+.flex-outer {
+  margin: 0 auto;
+  text-align: left;
+}
+
+.flex-outer li,
+.flex-inner {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  font-size: calc(6x + 2vmin);
-  color: #4e0b22;
-  text-align: start;
+}
+
+.flex-inner {
+  padding: 0 8px;
+}
+
+.flex-outer > li:not(:last-child) {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.flex-outer li label,
+.flex-outer li p {
+  padding: 8px;
+  font-weight: 300;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.flex-outer > li > label,
+.flex-outer li p {
+  flex: 1 0 200px;
+  max-width: 280px;
+}
+
+/* total width of input boxs */
+.flex-outer > li > label + *,
+.flex-inner {
+  flex: 1 0 160px;
+}
+
+.flex-outer li p {
+  margin: 0;
+}
+
+.flex-outer li input:not([type='checkbox']),
+.flex-outer li textarea {
+  padding: 10px;
+  border: none;
 }
 
 
 
+.flex-outer li button {
+  margin-left: auto;
+  padding: 8px 16px;
+  border: none;
+  background: #333;
+  color: #beb3b3;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  border-radius: 2px;
+}
+    
 
-  /* flex box for lists 
-  https://webdesign.tutsplus.com/building-responsive-forms-with-flexbox--cms-26767t
-  */
-
-  body {
-    font: normal 15x/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
-    background: #929494;
-    color: #ece2e2;
-    padding: 50px 0;
-    text-align: left;
-    display: grid;
-    place-items: center;
-    margin-bottom: 10px;
-  }
-
-
-  .App p {
-
-    margin-bottom: 10px;
-  }
-
-
-  
-  
-  .container {
-    width: 80%;
-    margin: 0 auto;
-  }
-  
-  .container * {
-    box-sizing: border-box;
-  }
-  
-  .flex-outer,
-  .flex-inner {
-    list-style-type: none;
-    padding: 0;
-
-  }
-  
-  .flex-outer {
-
-    margin: 0 auto;
-    text-align: left;
-  }
-  
-  .flex-outer li,
-  .flex-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  
-  .flex-inner {
-    padding: 0 8px;
-    /*justify-content: space-between;*/
-  }
-  
-  .flex-outer > li:not(:last-child) {
-    margin-bottom: 20px;
-  }
-  
-  .flex-outer li label,
-  .flex-outer li p {
-    padding: 8px;
-    font-weight: 300;
-    letter-spacing: .09em;
-    text-transform: uppercase;
-  }
-  
-  .flex-outer > li > label,
-  .flex-outer li p {
-    flex: 1 0 200px;
-    max-width: 280px;
-  }
-  
-  /* total width of input boxs */
-  .flex-outer > li > label + *,
-  .flex-inner {
-    flex: 1 0 160px;
-  }
-  
-  .flex-outer li p {
-    margin: 0;
-  }
-  
-  .flex-outer li input:not([type='checkbox']),
-  .flex-outer li textarea {
-    padding: 10px;
-    border: none;
-  }
-
-
-  
-  .flex-outer li button {
-    margin-left: auto;
-    padding: 8px 16px;
-    border: none;
-    background: #333;
-    color: #beb3b3;
-    text-transform: uppercase;
-    letter-spacing: .09em;
-    border-radius: 2px;
-  }
-  
-  /* .flex-inner li {
-    width: 100px;
-  } */
-
-
-    /* formating for results table*/
-
+/* formating for results table*/
 *,
 *::before,
 *::after {
@@ -201,13 +157,13 @@ td {
   border: 0.5px solid #ffffff;
 }
 tr:nth-child(even) { 
-  background-color: rgb(230, 230, 230); 
+  background-color: rgb(92, 90, 90); 
 } 
 tbody tr:hover {
   background-color: #f5f5f5;
 }
 th {
-  background-color: #4e0b22;
+  background-color: #242323;
   color: rgb(255, 255, 255);
 }
 tfoot {
@@ -215,21 +171,6 @@ tfoot {
   color: white;
 }
 
-/* .form2rows .flexitem {
-  padding: 10px;
-} */
-
-
-.side {
-  flex: 8;
-  padding: 10 px;
-}
-
-.side-content-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 select {
   margin: 0 auto;
@@ -247,7 +188,6 @@ select {
 
 }
 .selectBox{
-
   border:0px;
   margin: 0 auto;
   text-align: left;
@@ -258,20 +198,6 @@ select {
   outline:none;
 }
 
-.add-row-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.add-row-button:hover {
-  background-color: #0056b3;
-}
 
 
 

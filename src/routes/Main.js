@@ -1,13 +1,6 @@
 import logo from '../logo.svg';
 import '../App.css';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Link
-} from "react-router-dom";
-import { Component } from 'react';
-
-
+import {  Link} from "react-router-dom";
 
 function App () {
   return (
