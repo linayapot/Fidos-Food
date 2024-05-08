@@ -2,7 +2,7 @@ import {Form,redirect} from "react-router-dom";
 import logo from '../logo.svg';
 import '../App.css';
 import localforage from "localforage";
-import {unitconv, units} from "../math.js";
+import {unitconv} from "../math.js";
 import {useState} from "react";
 
 async function Diet_Form_Callback({ request, params }) {
@@ -86,6 +86,7 @@ export default function DietInfo() {
                 defaultValue={3500}
               />
           </li>
+      {/* --------------------------------- */}
           <li>
             <label for="moisture">Max Moisture* (%):  </label>
             <input required 
@@ -98,6 +99,7 @@ export default function DietInfo() {
               defaultValue={10}
             />
           </li>
+      {/* --------------------------------- */}
           <li>
             <label for="cp">Min Crude Protein* (%):  </label>
             <input required 
@@ -110,6 +112,7 @@ export default function DietInfo() {
               defaultValue={18}
             />
           </li>
+      {/* --------------------------------- */}
           <li>
             <label for="tfat">Min  Crude Fat* (%):  </label>
             <input required 
@@ -122,6 +125,7 @@ export default function DietInfo() {
               defaultValue={10}
             />
           </li>
+      {/* --------------------------------- */}
           <li>
             <label for="fibre">Max Crude Fibre* (%):  </label>
             <input required
@@ -134,6 +138,58 @@ export default function DietInfo() {
               defaultValue={15}
             />
           </li>
+      {/* --------------------------------- */}
+          <li>
+            <label for="fibre">Min Calcium (%):  </label>
+            <input 
+              id="Ca" 
+              aria-label="Minimum amount of calcium"
+              type="number"
+              name="Ca"
+              min="0"
+              max="99"
+              step="0.1"
+            />
+          </li>
+      {/* --------------------------------- */}
+          <li>
+            <label for="fibre">Min Phosphorus(%):  </label>
+            <input 
+              id="P" 
+              aria-label="Minimum amount of phosphorous"
+              type="number"
+              name="P"
+              min="0"
+              max="99"
+              step="0.1"
+            />
+          </li>
+      {/* --------------------------------- */}
+          <li>
+            <label for="fibre">Selenium (mg/kg):  </label>
+            <input 
+              id="Se" 
+              aria-label="Selenium Concentration"
+              type="number"
+              name="Se"
+              min="0"
+              max="2"
+              step="0.1"
+
+            />
+          </li>
+      {/* --------------------------------- */}
+          <li>
+            <label for="fibre">Vitamin E (IU/kg):  </label>
+            <input 
+              id="vitE" 
+              aria-label="Vitamin E Concentration"
+              type="number"
+              name="vitE"
+              min="0"
+              max="1000"
+            />
+          </li>
         </ul>
         <br></br>
         Select any additional nutrient included on your guaranteed analysis using the drop down menu. 
@@ -141,8 +197,12 @@ export default function DietInfo() {
         <br></br>
 
         <select class="selectBox" onChange={handleSelectChange}>
-          <option value="Calcium (%):">Calcium</option>
-          <option value="Phosphorous(%):">Phosphorous</option>
+          <option value="Vitamin A (IU/kg):" name="vitA">Vitamin A</option>
+          <option value="Omega-3 FA(%):">Omega-3 Fatty Acid</option>
+          <option value="Omega-6 FA(%):">Omega-6 Fatty Acid</option>
+          <option value="DHA + EPA(%):" name= "epa_dha">DHA + EPA </option>
+          <option value="Linoleic Acid:"name= "LA"> Linoleic ACid </option>
+
         </select>
         
         <ul class="flex-outer">
