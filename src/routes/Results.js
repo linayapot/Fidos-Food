@@ -46,15 +46,20 @@ function TransformDataForDisplay(user_data, names, units,rec_intake){
         let req= rec_intake[key]*mbw
         if (units[key]=='g'){
           intake = user_data.diet.amountAF*(user_data.diet[key]/100)
-        }
+          }
         else if (units[key]== 'mg'){
-          intake =user_data.diet.amountAF*(user_data.diet[key]/1000)          
+          intake =(user_data.diet.amountAF/1000)*user_data.diet[key] 
+             
+        }
+        else if (units[key]== 'μg'){
+          intake =(user_data.diet.amountAF*user_data.diet[key])
+              
         }
 
         output.push( {"name":names[key],
                 "units":units[key],
                 "req": Math.round(req),
-                "intake": intake.toFixed(1),
+                "intake": intake.toFixed(1),  
                 "perc":Math.round((intake/req)*100)
                 })      
       }
