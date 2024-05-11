@@ -204,7 +204,7 @@ export const units=
     'Se':'μg',
     'I':'μg',
     
-    'vitA':'RE',
+    'vitA':'mg', //change to RE
     'vitD':'μg',
     'vitE':'mg',
     'vitk':'mg',

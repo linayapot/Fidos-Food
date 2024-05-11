@@ -18,15 +18,18 @@ export default function DietInfo() {
       
   const [inputFields, setInputFields] = useState([]);
 
-  //creates the rows to be generated after a change occurs in the drop down box
+  //creates the array from changes in the select drop down menue
   const handleSelectChange = (e) => {
-    const selectedOption = e.target.value;
-    const newInputFields = [...inputFields, selectedOption];
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    const selectedValue = selectedOption.value;
+    const selectedName = selectedOption.getAttribute("name");
+    const newInputFields = [...inputFields, { value: selectedValue, name: selectedName }];
     setInputFields(newInputFields);
   };
 
   //allows users to delete the added rows
-  const handleDeleteInput = (index) => {
+  const handleDeleteInput = (index,event) => {
+    event.preventDefault(); // Prevent form submission 
     const newInputFields = [...inputFields];
     newInputFields.splice(index, 1);
     setInputFields(newInputFields);
@@ -44,7 +47,7 @@ export default function DietInfo() {
       <Form method="post" id="dietinfo">
         <ul class="flex-outer">
           <li>
-            <label for="amountAF">Daily Intake of Food:  </label>
+            <label htmlFor="amountAF">Daily Intake of Food:  </label>
             <input required 
               id= "amountAF"
               aria-label="Daily Amount of Food"
@@ -76,7 +79,7 @@ export default function DietInfo() {
       {/* --------------------------------- */}
         <ul class="flex-outer">
           <li>
-            <label for="kcal">Calorie* (kcal/kg): </label>
+            <label htmlFor="kcal">Calorie* (kcal/kg): </label>
               <input required 
                 id="kcal"
                 aria-label="The caloric density of the food"
@@ -88,7 +91,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label for="moisture">Max Moisture* (%):  </label>
+            <label htmlFor="moisture">Max Moisture* (%):  </label>
             <input required 
               id="moisture"
               aria-label="Maximum amount of moisture"
@@ -101,7 +104,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label for="cp">Min Crude Protein* (%):  </label>
+            <label htmlFor="cp">Min Crude Protein* (%):  </label>
             <input required 
               id="cp"
               aria-label="Minimum amount of crude protein"
@@ -114,7 +117,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label for="tfat">Min  Crude Fat* (%):  </label>
+            <label htmlFor="tfat">Min  Crude Fat* (%):  </label>
             <input required 
               id="tfat"
               aria-label="Mnimum amount of crude fat"
@@ -127,7 +130,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label for="fibre">Max Crude Fibre* (%):  </label>
+            <label htmlFor="fibre">Max Crude Fibre* (%):  </label>
             <input required
               id="fibre" 
               aria-label="Minimum amount of crude fibre"
@@ -140,7 +143,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label for="fibre">Min Calcium (%):  </label>
+            <label htmlFor="fibre">Min Calcium (%):  </label>
             <input 
               id="Ca" 
               aria-label="Minimum amount of calcium"
@@ -153,7 +156,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label for="fibre">Min Phosphorus(%):  </label>
+            <label htmlFor="fibre">Min Phosphorus(%):  </label>
             <input 
               id="P" 
               aria-label="Minimum amount of phosphorous"
@@ -166,7 +169,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label for="fibre">Selenium (mg/kg):  </label>
+            <label htmlFor="fibre">Selenium (mg/kg):  </label>
             <input 
               id="Se" 
               aria-label="Selenium Concentration"
@@ -180,7 +183,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label for="fibre">Vitamin E (IU/kg):  </label>
+            <label htmlFor="fibre">Vitamin E (IU/kg):  </label>
             <input 
               id="vitE" 
               aria-label="Vitamin E Concentration"
@@ -197,20 +200,21 @@ export default function DietInfo() {
         <br></br>
 
         <select class="selectBox" onChange={handleSelectChange}>
-          <option value="Vitamin A (IU/kg):" name="vitA">Vitamin A</option>
-          <option value="Omega-3 FA(%):">Omega-3 Fatty Acid</option>
-          <option value="Omega-6 FA(%):">Omega-6 Fatty Acid</option>
+          <option selected="true" disabled="disabled">Select Additional Nutrients</option>
+          <option value="Min Vitamin A (IU/kg): " name="vitA">Vitamin A</option>
+          <option value="Omega-3 FA(%): "name="ala">Omega-3 Fatty Acid</option>
+          <option value="Omega-6 FA(%): " >Omega-6 Fatty Acid</option>
           <option value="DHA + EPA(%):" name= "epa_dha">DHA + EPA </option>
-          <option value="Linoleic Acid:"name= "LA"> Linoleic ACid </option>
+          <option value="Linoleic Acid: " name= "LA"> Linoleic ACid </option>
 
         </select>
         
         <ul class="flex-outer">
-          {inputFields.map((label, index) => (
+          {inputFields.map((option, index) => ( //renders the mapped dynamic input fields
             <li key={index}>
-              <label>{label}</label>
-              <input type="text" />
-              <button onClick={() => handleDeleteInput(index)}>X</button>
+              <label>{option.value}</label>
+              <input type="text" name={option.name} /> {/* Assign unique name so it can be entered into dataobkect*/}
+              <button onClick={(e) => handleDeleteInput(index,e)}>X</button>
             </li>
           ))}
         </ul>

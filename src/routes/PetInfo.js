@@ -25,7 +25,7 @@ function PetInfo() {
         <ul class="flex-outer">
         {/* --------------------------------- */}
           <li>
-            <label for="name">Name:</label>
+            <label htmlFor="name">Name:</label>
             <input
                 placeholder="Fido"
                 aria-label="Dog's Name"
@@ -48,7 +48,7 @@ function PetInfo() {
           </li>
         {/* --------------------------------- */}
           <li>
-            <label for="birthdate"> Birthdate: </label>
+            <label htmlFor="birthdate"> Birthdate: </label>
               <input required
                 id="birthdate"
                 type="date"
@@ -71,7 +71,7 @@ function PetInfo() {
           </li>
         {/* --------------------------------- */}
           <li>
-          <label for="breed"> Breed: </label>
+          <label htmlFor="breed"> Breed: </label>
               <input
                 id="breed"
                 placeholder="Golden Retriever"
@@ -82,7 +82,7 @@ function PetInfo() {
           </li>      
         {/* --------------------------------- */}   
           <li>
-            <label for="bodyweight"> Body Weight: </label>
+            <label htmlFor="bodyweight"> Body Weight: </label>
             <input required
               id ="bodyweight"
               placeholder="45"
