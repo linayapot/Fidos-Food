@@ -108,7 +108,6 @@ function PetInfo() {
         {/* --------------------------------- */}
           <li>
             <label htmlFor="bcs">Body Condition:  </label>
-            <div class="selectWrapper">
               <select name="bcs" id="bcs" required class="selectBox">
                 <option value="1">1 - Emaciated</option>
                 <option value="2">2 - Very Thin</option>
@@ -119,25 +118,22 @@ function PetInfo() {
                 <option value="7">7 - Overweight</option>
                 <option value="8">8 - Very Overweight (light work)</option>
                 <option value="9">9 - Obese (medium work)</option>
-              </select>
-            </div>         
+              </select>     
           </li>
         {/* --------------------------------- */}
           <li>
             <label htmlFor="factor">Lifestyle:  </label>
-            <div class="selectWrapper">
-              <select name="factor" id="factor" required class="selectBox">
-                <option selected value="1.6">Neutered Adult, average activity</option>
-                <option value="1.8">Intact Adult, average activity</option>
-                <option value="1.2">Inactive/Senior</option>
-                <option value="2">Working Dog (light work)</option>
-                <option value="3">Working Dog (medium work)</option>
-                <option value="4">Working Dog (heavy work)</option>
-                <option value="3">Puppy (0 - 4 months) </option>
-                <option value="2">Puppy (4 - 12 months) </option>
-              </select>
-            </div>
-          </li>
+            <select name="factor" id="factor" required class="selectBox">
+              <option selected value="1.6">Neutered Adult, average activity</option>
+              <option value="1.8">Intact Adult, average activity</option>
+              <option value="1.2">Inactive/Senior</option>
+              <option value="2">Working Dog (light work)</option>
+              <option value="3">Working Dog (medium work)</option>
+              <option value="4">Working Dog (heavy work)</option>
+              <option value="3">Puppy (0 - 4 months) </option>
+              <option value="2">Puppy (4 - 12 months) </option>
+            </select>
+         </li>
         {/* --------------------------------- */}
           <li>
             <button type="submit">Next Step</button>          
