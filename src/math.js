@@ -237,8 +237,8 @@ export const names=
         
     'tfat':'Total Fat',
     'LA':'Linoleic Acid',
-    'ala':'Alpha Linoleic ACid',
-    'epa_dha':'EPA &DHA',
+    'ala':'Alpha Linoleic Acid',
+    'epa_dha':'EPA & DHA',
     
     'Ca':'Calcium',
     'P':'Phosphorous',

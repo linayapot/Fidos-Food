@@ -38,7 +38,7 @@ function TransformDataForDisplay(user_data, names, units,rec_intake, SUL){
   let mbw=user_data.pet.mbw
   const output= []
   for (const key in user_data.diet){
-    if (['kcal', 'unit', 'carb', 'intake','amountAF','fibre','moisture'].includes(key) || user_data.diet[key] == "")
+    if (['kcal', 'unit', 'carb', 'intake','amountAF','fibre','moisture','glucosamine'].includes(key) || user_data.diet[key] == "")
   	{ }
     else
       {
@@ -75,15 +75,44 @@ function warningStatements (resultsdata){
   const output=[]
   let warningString
   for(var i=0;i<resultsdata.length;i++){
-    if (isNaN(resultsdata[1].max))
-      {}
-    else {
-      warningString = "your dog's intake of " +resultsdata[1].name + "is too high"
+    if (isNaN(resultsdata[i].max))
+      { }
+    else if (resultsdata[i].intake  >= resultsdata[i].max){
+        warningString = "Your dog's daily intake of " + resultsdata[i].name + " is " + Math.round(resultsdata[i].intake) + " " + resultsdata[i].units + ". This is above the safe upper limit of " + resultsdata[i].max  + " " + resultsdata[i].units + " per day."
+        output.push(warningString);
+        }
     }
-  output.push(warningString)
+    return output
   }
-return output
+
+function glucosamineCheck(user_data){
+  const output=[]
+  let recGlucosamine
+  if ( !("glucosamine" in user_data.diet) == true){
+    console.log("There is no glucosamine key in the userdata object")
+  }
+  else{
+    console.log( user_data.pet.weight)
+    if (user_data.pet.weight <= 9){
+      recGlucosamine = "250 - 500 mg per day. "
+    }
+    else if (user_data.pet.weight > 9 &&  user_data.pet.weight <= 19 ){
+      recGlucosamine = "500 - 1,000 mg per day. "
+    }
+    else if (user_data.pet.weight > 19 &&  user_data.pet.weight <= 45 ){
+      recGlucosamine = "1,000 - 1,500 mg per day. "
+    }
+    else if (user_data.pet.weight <= 45){
+      recGlucosamine = "at least 1,500 mg per day. "
+    }
+    let glucosamineIntake = user_data.diet.amountAF/1000*user_data.diet.glucosamine
+    let glucosamineSatement = "Your pet food provides " + glucosamineIntake + " mg  of glucosamine per day. For " + user_data.pet.dogname +"'s size, the recommeneded amount of glucosamine for joint health is " + recGlucosamine + "Based on the available literature, the joint health benefits of glucosamine cannnot be confirmed nor denied. Clinical trials have yielded mixed results."
+    output.push(glucosamineSatement);
+    return output
+  }
 }
+
+
  
 export default function Results() {
   const user_data  = useLoaderData();
@@ -91,6 +120,10 @@ export default function Results() {
   const resultsdata = TransformDataForDisplay(user_data, names, units,rec_intake,SUL)
   console.log(resultsdata)
   console.log(warningStatements(resultsdata))
+  const arrayWarningStatements = warningStatements(resultsdata)
+  const glucosamineSatement = glucosamineCheck(user_data);
+  /* Mapping the warningStatements into a new array of JSX nodes as arrayDataItems */
+  const arrayToRender = arrayWarningStatements.map((warning) => <li>{warning}</li>);
   return (
     <div className="App">
       <header className="App-header">
@@ -100,7 +133,7 @@ export default function Results() {
         </div>     
       </header>
 
-      <table>
+      <table className="center">
         <thead>
           <tr>
             <th>Nutrient</th>
@@ -136,10 +169,21 @@ export default function Results() {
                           />)}   
         </tbody>
       </table>
-    for max that is not NaN, print here <br></br>
-    glucosamine statement <br></br>
-    fatty acid?
-  
+
+    <div>
+
+      <br></br>
+      <div>
+        {glucosamineSatement}
+      </div>
+        <br></br>
+        {arrayToRender.length > 0 ? <h2>WARNING </h2>: null}
+        {/* returning arraWarningStatements wrapped in <ul> */}
+        <ul className="flex-outer">{arrayToRender}</ul>
+      </div>
+
+
+ 
     </div>
   );
 }

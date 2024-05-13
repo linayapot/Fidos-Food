@@ -45,7 +45,7 @@ export default function DietInfo() {
       * indicates mandatory information
 
       <Form method="post" id="dietinfo">
-        <ul class="flex-outer">
+        <ul className="flex-outer">
           <li>
             <label htmlFor="amountAF">Daily Intake of Food:  </label>
             <input required 
@@ -60,7 +60,7 @@ export default function DietInfo() {
         {/* --------------------------------- */}
           <li>
             <p>Units:</p>
-              <ul class="flex-inner">
+              <ul className="flex-inner">
                 <li>
                   <input type="radio" name="unit" id="g" value="g" defaultChecked={true}/>
                   <label htmlFor="g"> g </label> 
@@ -77,7 +77,7 @@ export default function DietInfo() {
         Diet Info: Pet Food Info
       </div>
       {/* --------------------------------- */}
-        <ul class="flex-outer">
+        <ul className="flex-outer">
           <li>
             <label htmlFor="kcal">Calorie (kcal/kg)* </label>
               <input required 
@@ -199,28 +199,29 @@ export default function DietInfo() {
         <br></br>
         <br></br>
 
-        <select class="selectBox" onChange={handleSelectChange}>
+        <select className="selectBox" onChange={handleSelectChange}>
           <option selected="true" disabled="disabled">Select Additional Nutrients</option>
-          <option value="Vitamin A (IU/kg) " name="vitA">Vitamin A</option>
-          <option value="Vitamin D (IU/kg) " name="vitD">Vitamin D</option>
+          <option value="Copper (mg/kg) " name= "Cu"> Copper </option>
+          <option value="DHA + EPA (%) " name= "epa_dha">DHA + EPA </option>
+          <option value="Glucosamine (ppm) " name= "glucosamine"> Glucosamine </option>
+          <option value="Iodine (mg/kg) " name= "I"> Iodine</option>
+          <option value="Linoleic Acid (%)" name= "LA"> Linoleic Acid </option>
+          <option value="Lysine (%) " name= "Lys"> Lysine </option>
+          <option value="Manganese (mg/kg) " name= "Mn"> Manganese </option>
+          <option value="Magnesium (%) " name= "Mg"> Magnesium </option>
+          <option value="Methionine (%) " name= "Met"> Methionine </option>
           <option value="Omega-3 FA (%) "name="ala">Omega-3 Fatty Acid</option>
           <option value="Omega-6 FA (%) " >Omega-6 Fatty Acid</option>
-          <option value="DHA + EPA (%) " name= "epa_dha">DHA + EPA </option>
-          <option value="Linoleic Acid (%)" name= "LA"> Linoleic Acid </option>
-          <option value="Methionine (%) " name= "Met"> Methionine </option>
-          <option value="Lysine (%) " name= "Lys"> Lysine </option>
-          <option value="Copper (mg/kg) " name= "Cu"> Copper </option>
+          <option value="Sodium (%) " name= "Na"> Sodium </option>          
+          <option value="Vitamin A (IU/kg) " name="vitA">Vitamin A</option>
+          <option value="Vitamin D (IU/kg) " name="vitD">Vitamin D</option>
           <option value="Zinc (mg/kg) " name= "Zn"> Zinc </option>
-          <option value="Iodine (mg/kg) " name= "I"> Iodine</option>
-          <option value="Manganese (mg/kg) " name= "Mn"> Manganese </option>
-          <option value="Sodium (%) " name= "Na"> Sodium </option>
-          <option value="Magnesium (%) " name= "Mg"> Magnesium </option>
         </select>
 
         <br></br>
 
         
-        <ul class="flex-outer">
+        <ul className="flex-outer">
           {inputFields.map((option, index) => ( //renders the mapped dynamic input fields
             <li key={index}>
               <label>{option.value}</label>
@@ -230,18 +231,17 @@ export default function DietInfo() {
           ))}
         </ul>
 
-      <ul class="flex-outer">
+      <ul className="flex-outer">
         <li>
           <button type="submit">Submit</button>  
         </li> 
         <br></br>
       </ul> 
 
-        <p style={{textAlign: 'left'}}> <b> Notes</b> </p>
-        <ul class>
-          <li class="simple-list"> PPM is the same as mg/kg. These units are interchangeable</li>
-          <li class="simple-list">All labels must include the % moisture, crude fibre, crude protein and crude fat</li>
-          <li class="simple-list"> Please reach out to the pet food manufacturer if you'd like a more complete nutritional profile on your pet</li>
+        <p className ="flex-outer"> Notes:</p>
+        <ul className ="flex-outer">
+          <li className="simple-list">- PPM is the same as mg/kg. These units are interchangeable</li>
+          <li className="simple-list">- Please reach out to the pet food manufacturer if you'd like a more complete nutritional profile on your pet</li>
         </ul>
 
    

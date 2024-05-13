@@ -22,12 +22,14 @@ function PetInfo() {
         Enter Your Dog's Information 
       </div>
         <Form method="post" id="doginfo">
-        <ul class="flex-outer">
+        <ul className="flex-outer">
         {/* --------------------------------- */}
           <li>
             <label htmlFor="name">Name:</label>
             <input
+                required
                 placeholder="Fido"
+                value = "Spyro"
                 aria-label="Dog's Name"
                 type="text"
                 id="name"
@@ -37,7 +39,7 @@ function PetInfo() {
         {/* --------------------------------- */}
           <li>
             <p>Sex:</p>        
-            <ul class="flex-inner">
+            <ul className="flex-inner">
             <li>
               <input type="radio" name="sex" id="male" value="male"/>
               <label htmlFor="male">M</label>
@@ -60,7 +62,7 @@ function PetInfo() {
         {/* --------------------------------- */}
           <li>
             <p>Spayed/Neutered:</p>        
-            <ul class="flex-inner">
+            <ul className="flex-inner">
             <li>
               <input type="radio" name="SN" id="Y" value="Y" defaultChecked={true}/>
               <label htmlFor="Y">Y</label>
@@ -96,7 +98,7 @@ function PetInfo() {
         {/* --------------------------------- */}
           <li>
             <p>Units:</p>        
-            <ul class="flex-inner">
+            <ul className="flex-inner">
               <li>
                 <input type="radio" required name="unit" id="lb" value="lb" defaultChecked={true}/>
                 <label htmlFor="lb">lb</label> 
@@ -108,7 +110,7 @@ function PetInfo() {
         {/* --------------------------------- */}
           <li>
             <label htmlFor="bcs">Body Condition:  </label>
-              <select name="bcs" id="bcs" required class="selectBox">
+              <select name="bcs" id="bcs" required className="selectBox">
                 <option value="1">1 - Emaciated</option>
                 <option value="2">2 - Very Thin</option>
                 <option value="3">3 - Slightly Thin</option>
@@ -123,7 +125,7 @@ function PetInfo() {
         {/* --------------------------------- */}
           <li>
             <label htmlFor="factor">Lifestyle:  </label>
-            <select name="factor" id="factor" required class="selectBox">
+            <select name="factor" id="factor" required className="selectBox">
               <option selected value="1.6">Neutered Adult, average activity</option>
               <option value="1.8">Intact Adult, average activity</option>
               <option value="1.2">Inactive/Senior</option>
