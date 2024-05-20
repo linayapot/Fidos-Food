@@ -45,7 +45,7 @@ export default function DietInfo() {
       * indicates mandatory information
 
       <Form method="post" id="dietinfo">
-        <ul class="flex-outer">
+        <ul className="flex-outer">
           <li>
             <label htmlFor="amountAF">Daily Intake of Food:  </label>
             <input required 
@@ -60,7 +60,7 @@ export default function DietInfo() {
         {/* --------------------------------- */}
           <li>
             <p>Units:</p>
-              <ul class="flex-inner">
+              <ul className="flex-inner">
                 <li>
                   <input type="radio" name="unit" id="g" value="g" defaultChecked={true}/>
                   <label htmlFor="g"> g </label> 
@@ -77,9 +77,9 @@ export default function DietInfo() {
         Diet Info: Pet Food Info
       </div>
       {/* --------------------------------- */}
-        <ul class="flex-outer">
+        <ul className="flex-outer">
           <li>
-            <label htmlFor="kcal">Calorie* (kcal/kg): </label>
+            <label htmlFor="kcal">Calorie (kcal/kg)* </label>
               <input required 
                 id="kcal"
                 aria-label="The caloric density of the food"
@@ -91,7 +91,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label htmlFor="moisture">Max Moisture* (%):  </label>
+            <label htmlFor="moisture">Max Moisture (%)* </label>
             <input required 
               id="moisture"
               aria-label="Maximum amount of moisture"
@@ -104,7 +104,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label htmlFor="cp">Min Crude Protein* (%):  </label>
+            <label htmlFor="cp">Crude Protein (%)* </label>
             <input required 
               id="cp"
               aria-label="Minimum amount of crude protein"
@@ -117,7 +117,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label htmlFor="tfat">Min  Crude Fat* (%):  </label>
+            <label htmlFor="tfat">Crude Fat (%)* </label>
             <input required 
               id="tfat"
               aria-label="Mnimum amount of crude fat"
@@ -130,7 +130,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label htmlFor="fibre">Max Crude Fibre* (%):  </label>
+            <label htmlFor="fibre">Crude Fibre (%)* </label>
             <input required
               id="fibre" 
               aria-label="Minimum amount of crude fibre"
@@ -143,7 +143,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label htmlFor="fibre">Min Calcium (%):  </label>
+            <label htmlFor="fibre">Calcium (%) </label>
             <input 
               id="Ca" 
               aria-label="Minimum amount of calcium"
@@ -156,7 +156,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label htmlFor="fibre">Min Phosphorus(%):  </label>
+            <label htmlFor="fibre">Phosphorus (%) </label>
             <input 
               id="P" 
               aria-label="Minimum amount of phosphorous"
@@ -169,7 +169,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label htmlFor="fibre">Selenium (mg/kg):  </label>
+            <label htmlFor="fibre">Selenium (mg/kg) </label>
             <input 
               id="Se" 
               aria-label="Selenium Concentration"
@@ -183,7 +183,7 @@ export default function DietInfo() {
           </li>
       {/* --------------------------------- */}
           <li>
-            <label htmlFor="fibre">Vitamin E (IU/kg):  </label>
+            <label htmlFor="fibre">Vitamin E (IU/kg) </label>
             <input 
               id="vitE" 
               aria-label="Vitamin E Concentration"
@@ -199,17 +199,29 @@ export default function DietInfo() {
         <br></br>
         <br></br>
 
-        <select class="selectBox" onChange={handleSelectChange}>
+        <select className="selectBox" onChange={handleSelectChange}>
           <option selected="true" disabled="disabled">Select Additional Nutrients</option>
-          <option value="Min Vitamin A (IU/kg): " name="vitA">Vitamin A</option>
-          <option value="Omega-3 FA(%): "name="ala">Omega-3 Fatty Acid</option>
-          <option value="Omega-6 FA(%): " >Omega-6 Fatty Acid</option>
-          <option value="DHA + EPA(%):" name= "epa_dha">DHA + EPA </option>
-          <option value="Linoleic Acid: " name= "LA"> Linoleic ACid </option>
-
+          <option value="Copper (mg/kg) " name= "Cu"> Copper </option>
+          <option value="DHA + EPA (%) " name= "epa_dha">DHA + EPA </option>
+          <option value="Glucosamine (ppm) " name= "glucosamine"> Glucosamine </option>
+          <option value="Iodine (mg/kg) " name= "I"> Iodine</option>
+          <option value="Linoleic Acid (%)" name= "LA"> Linoleic Acid </option>
+          <option value="Lysine (%) " name= "Lys"> Lysine </option>
+          <option value="Manganese (mg/kg) " name= "Mn"> Manganese </option>
+          <option value="Magnesium (%) " name= "Mg"> Magnesium </option>
+          <option value="Methionine (%) " name= "Met"> Methionine </option>
+          <option value="Omega-3 FA (%) "name="ala">Omega-3 Fatty Acid</option>
+          <option value="Omega-6 FA (%) " >Omega-6 Fatty Acid</option>
+          <option value="Sodium (%) " name= "Na"> Sodium </option>          
+          <option value="Vitamin A (IU/kg) " name="vitA">Vitamin A</option>
+          <option value="Vitamin D (IU/kg) " name="vitD">Vitamin D</option>
+          <option value="Zinc (mg/kg) " name= "Zn"> Zinc </option>
         </select>
+
+        <br></br>
+
         
-        <ul class="flex-outer">
+        <ul className="flex-outer">
           {inputFields.map((option, index) => ( //renders the mapped dynamic input fields
             <li key={index}>
               <label>{option.value}</label>
@@ -219,11 +231,20 @@ export default function DietInfo() {
           ))}
         </ul>
 
-      <ul class="flex-outer">
+      <ul className="flex-outer">
         <li>
           <button type="submit">Submit</button>  
         </li> 
-      </ul>    
+        <br></br>
+      </ul> 
+
+        <p className ="flex-outer"> Notes:</p>
+        <ul className ="flex-outer">
+          <li className="simple-list">- PPM is the same as mg/kg. These units are interchangeable</li>
+          <li className="simple-list">- Please reach out to the pet food manufacturer if you'd like a more complete nutritional profile on your pet</li>
+        </ul>
+
+   
 
     </Form>
   </div>

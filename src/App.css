@@ -1,20 +1,22 @@
 .App {
   text-align: center;
   align-items:center;
-  max-width: 800px;
+  max-width: 600px;
   background-color: #929494;
   font: normal 15x/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
 
 }
 
 .App-logo-first-page{
+
   max-width: 30vw;
   pointer-events: none;
   align-items: center;
 }
 
 .App-logo{
-  max-height: 15vw;
+  padding-top: 20px;
+  max-height: 10vw;
   min-height: 100pt;
   display: block;
   margin-left: auto;
@@ -72,6 +74,7 @@ body {
 }
 
 .flex-outer {
+  padding-top: 10px;
   margin: 0 auto;
   text-align: left;
 }
@@ -96,14 +99,13 @@ body {
 .flex-outer li p {
   padding: 8px;
   font-weight: 300;
-  letter-spacing: .09em;
   text-transform: uppercase;
 }
 
 .flex-outer > li > label,
 .flex-outer li p {
-  flex: 1 0 200px;
-  max-width: 280px;
+  flex: 1 0 90px;
+  max-width: 250px;
 }
 
 /* total width of input boxs */
@@ -131,7 +133,7 @@ body {
   background: #585656;
   color: #beb3b3;
   text-transform: uppercase;
-  letter-spacing: .09em;
+  letter-spacing: .11em;
   border-radius: 2px;
 }
 
@@ -141,7 +143,17 @@ body {
 }
 
 
+.simple-list {
+  text-align: left;
+  list-style-type: disc;
+  display: list-item;
+}
 /* formating for results table*/
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
 *,
 *::before,
 *::after {
@@ -150,7 +162,7 @@ body {
   box-sizing: border-box;
 }
 body {
-  padding: 20px;
+  padding: 10px;
 }
 table {
   border-collapse: collapse;
@@ -182,8 +194,9 @@ select {
   margin: 0 auto;
   text-align: left;
   padding: 10px;
+  padding-bottom: 10px;
   flex: 1 0 120px;
-  max-width: 220px;
+  /*max-width: 220px;*/
   font: normal 15x/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
 }
 
@@ -198,8 +211,8 @@ select {
   margin: 0 auto;
   text-align: left;
   padding: 10px;
-  flex: 1 0 120px;
-  max-width: 220px;
+  /*flex: 1 0 120px;*/
+ /* max-width: 220px;*/
   font: normal 15x/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
   outline:none;
 }
