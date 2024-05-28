@@ -204,7 +204,7 @@ export const units=
     'Se':'μg',
     'I':'μg',
     
-    'vitA':'mg', //change to RE
+    'vitA':'RE', //change to RE
     'vitD':'μg',
     'vitE':'mg',
     'vitk':'mg',
@@ -237,8 +237,8 @@ export const names=
         
     'tfat':'Total Fat',
     'LA':'Linoleic Acid',
-    'ala':'Alpha Linoleic ACid',
-    'epa_dha':'EPA &DHA',
+    'ala':'Alpha Linoleic Acid',
+    'epa_dha':'EPA & DHA',
     
     'Ca':'Calcium',
     'P':'Phosphorous',
