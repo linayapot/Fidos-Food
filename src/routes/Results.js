@@ -1,5 +1,4 @@
 import {useLoaderData} from "react-router-dom";
-import logo from '../logo.svg';
 import '../App.css';
 import localforage from "localforage";
 import {ME_Req, ME_Intake, rec_intake, names, units} from "../math.js";
@@ -74,21 +73,18 @@ export default function Results() {
   console.log(sampledata)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div className="first-header"> 
-          Results
-        </div>     
-      </header>
+      <div className="first-header"> 
+        Results
+      </div>     
 
       <table>
         <thead>
           <tr>
             <th>Nutrient</th>
-            <th>Units</th>
+            <th>Unit</th>
             <th>Required</th>
             <th>Intake</th>
-            <th>% of Requirment</th>
+            <th>% of <br></br>Required</th>
           </tr>
         </thead>
         <tbody>

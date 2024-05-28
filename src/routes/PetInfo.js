@@ -1,8 +1,9 @@
 import {Form,redirect} from "react-router-dom";
-import logo from '../logo.svg';
 import '../App.css';
 import localforage from "localforage";
 import {unitconv} from "../math.js";
+import React, { useState } from 'react';
+import {dogBreeds} from "../dogbreed.js";
 
 async function PetInfo_Form_Callback({ request, params }) {
   const formData = await request.formData();
@@ -15,130 +16,130 @@ async function PetInfo_Form_Callback({ request, params }) {
 }
 
 function PetInfo() {
+
+  //for BCS slider
+
+  const [value, setValue] = useState(5);
+
+  const handleChange = (e) => {
+    setValue(parseInt(e.target.value));
+  };
+
+
   return (
     <div className="App">
-      <img src={logo} className="App-logo"  alt="doglogo" />
       <div className="first-header">       
-        Enter Your Dog's Information 
+        Pet Info 
+        <br></br>    
+        <br></br>
       </div>
         <Form method="post" id="doginfo">
         <ul class="flex-outer">
-        {/* --------------------------------- */}
-          <li>
-            <label htmlFor="name">Name:</label>
-            <input
-                placeholder="Fido"
-                aria-label="Dog's Name"
-                type="text"
-                id="name"
-                name="dogname"
+          <li className="floating-label">
+            <input required
+              type="text"
+              id="name"      
+              className="floating-input"
+              defaultValue="Fido"
             />
-          </li>
-        {/* --------------------------------- */}
-          <li>
-            <p>Sex:</p>        
-            <ul class="flex-inner">
-            <li>
-              <input type="radio" name="sex" id="male" value="male"/>
-              <label htmlFor="male">M</label>
+            <label htmlFor="name" className="floating-label-text">Name</label>
+            <div class="switch-field">
+              <input type="radio" name="sex" id="male" value="male" defaultChecked={true}/>
+              <label htmlFor="male">Male</label>
               <input type="radio" name="sex" id="female" value="female"/>
-              <label htmlFor="female">F</label> 
-              </li>
-            </ul>
+              <label htmlFor="female">Female</label> 
+            </div>
+
           </li>
-        {/* --------------------------------- */}
-          <li>
-            <label htmlFor="birthdate"> Birthdate: </label>
+          {/* --------------------------------- */}
+          <div style={{display:"flex", columnGap:"45px", paddingBottom:"0px"}}>
+            <li className="floating-label">
               <input required
-                id="birthdate"
-                type="date"
-                name="bdate"
-                placeholder="mm/dd/yyyy"
-                value="2013-01-08"
-              />
-          </li>
-        {/* --------------------------------- */}
-          <li>
-            <p>Spayed/Neutered:</p>        
-            <ul class="flex-inner">
-            <li>
-              <input type="radio" name="SN" id="Y" value="Y" defaultChecked={true}/>
-              <label htmlFor="Y">Y</label>
-              <input type="radio" name="SN" id="N" value="N"/>
-              <label htmlFor="N">N</label> 
+                  id="birthdate"
+                  type="date"
+                  name="bdate"
+                  placeholder="mm/dd/yyyy"
+                  value="2013-01-08"
+                  className="floating-input"
+                />
+              <label htmlFor="birthdate" className="floating-label-text">Birthdate </label>
             </li>
-          </ul>
-          </li>
-        {/* --------------------------------- */}
-          <li>
-          <label htmlFor="breed"> Breed: </label>
-              <input
-                id="breed"
-                placeholder="Golden Retriever"
-                aria-label="Type of Breed"
-                type="text"
-                name="breed"
-              />
-          </li>      
-        {/* --------------------------------- */}   
-          <li>
-            <label htmlFor="bodyweight"> Body Weight: </label>
+
+            <li className="floating-label">
+              <li class="switch-field" >
+                <input type="radio" name="SN" id="Y" value="Y" defaultChecked={true}/>
+                <label htmlFor="Y" >Yes</label>
+                <input type="radio" name="SN" id="N" value="N"/>
+                <label htmlFor="N">No</label> 
+              </li>
+              <label htmlFor="SN" className="floating-label-text" style={{top: "-16px", width: "max-content"}}>Spayed/Neutered</label>
+            </li>
+          </div>
+         {/* --------------------------------- */}  
+          <li className="floating-label" style={{wrap:"nowrap"}}>
             <input required
               id ="bodyweight"
-              placeholder="45"
               defaultValue={45}
               aria-label="Weight of Dog"
               type="number"
               name="weight"
               min="1"
+              className="floating-input"
             />
-          </li>
-        {/* --------------------------------- */}
-          <li>
-            <p>Units:</p>        
-            <ul class="flex-inner">
-              <li>
-                <input type="radio" required name="unit" id="lb" value="lb" defaultChecked={true}/>
-                <label htmlFor="lb">lb</label> 
-                <input type="radio" required name="unit" id="kg" value="kg"/>
-                <label htmlFor="kg">kg</label> 
-              </li>
-            </ul>       
-          </li>
-        {/* --------------------------------- */}
-          <li>
-            <label htmlFor="bcs">Body Condition:  </label>
-            <div class="selectWrapper">
-              <select name="bcs" id="bcs" required class="selectBox">
-                <option value="1">1 - Emaciated</option>
-                <option value="2">2 - Very Thin</option>
-                <option value="3">3 - Slightly Thin</option>
-                <option selected value="4">4 - Ideal </option>
-                <option value="5">5 - Ideal</option>
-                <option value="6">6 - Slightly Overweight</option>
-                <option value="7">7 - Overweight</option>
-                <option value="8">8 - Very Overweight (light work)</option>
-                <option value="9">9 - Obese (medium work)</option>
-              </select>
-            </div>         
-          </li>
-        {/* --------------------------------- */}
-          <li>
-            <label htmlFor="factor">Lifestyle:  </label>
-            <div class="selectWrapper">
-              <select name="factor" id="factor" required class="selectBox">
-                <option selected value="1.6">Neutered Adult, average activity</option>
-                <option value="1.8">Intact Adult, average activity</option>
-                <option value="1.2">Inactive/Senior</option>
-                <option value="2">Working Dog (light work)</option>
-                <option value="3">Working Dog (medium work)</option>
-                <option value="4">Working Dog (heavy work)</option>
-                <option value="3">Puppy (0 - 4 months) </option>
-                <option value="2">Puppy (4 - 12 months) </option>
-              </select>
+            <label htmlFor="bodyweight" className="floating-label-text">Weight</label>
+            <div class="switch-field" >
+              <input type="radio" required name="unit" id="lb" value="lb" defaultChecked={true}/>
+              <label htmlFor="lb">lb</label> 
+              <input type="radio" required name="unit" id="kg" value="kg"/>
+              <label htmlFor="kg">kg</label> 
             </div>
           </li>
-        {/* --------------------------------- */}
+          {/* --------------------------------- */}
+          <li className="floating-label">
+            <select name="breed" id="breed"  className="selectBox floating-input">
+              <option value="other">Mixed/Other</option>
+                {/* Convert the dogBreeds list to an array and then map over it */}
+                {[...dogBreeds].map((breed, index) => (
+                <option key={index} value={breed}>{breed}</option>
+                ))}
+            </select>
+            <label htmlFor="breed" className="floating-label-text" style={{top: "-22px"}}>Breed</label>
+          </li>    
+          {/* --------------------------------- */}
+          <li className="floating-label">
+            <select name="factor" id="factor" required class="selectBox">
+              <option selected value="1.6">Neutered Adult, average activity</option>
+              <option value="1.8">Intact Adult, average activity</option>
+              <option value="1.2">Inactive/Senior</option>
+              <option value="2">Working Dog (light work)</option>
+              <option value="3">Working Dog (medium work)</option>
+              <option value="4">Working Dog (heavy work)</option>
+              <option value="3">Puppy (0 - 4 months) </option>
+              <option value="2">Puppy (4 - 12 months) </option>
+            </select>
+            <label htmlFor="factor" className="floating-label-text" style={{top: "-22px"}}>Lifestyle  </label>
+            </li>
+          {/* --------------------------------- */}
+          <label htmlFor="bcs"> Body Condition: </label>
+          <li className="floating-label">
+            <div className="container">
+              <div className="value">{value}</div>
+                <input 
+                  type="range" 
+                  min="1" 
+                  max="9" 
+                  step="1" 
+                  value={value} 
+                  onChange={handleChange} 
+                  className="slider" 
+                />
+                <div className="labels">
+                  <span>Emaciated</span>
+                  <span>Ideal</span>
+                  <span>Obese</span>
+                </div>
+              </div>
+          </li>
           <li>
             <button type="submit">Next Step</button>          
           </li>
