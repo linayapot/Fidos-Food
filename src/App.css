@@ -1,8 +1,10 @@
 .App {
   text-align: center;
   align-items:center;
-  max-width: 600px;
+  max-width: 400px;
   font: normal 15x/1.5  "Fira Sans", "Helvetica Neue", sans-serif; 
+  -webkit-appearance: none;
+
 }
 
 .App-logo{
@@ -66,6 +68,7 @@ body {
 }
 
 .flex-outer {
+  -webkit-appearance: none;
   text-align: left;
   justify-content: space-evenly;
   margin-bottom:  10px;
@@ -90,8 +93,8 @@ body {
 .flex-outer li label,
 .flex-outer li p {
   /* padding: 7px; */
-  font-weight: 300;
-  letter-spacing: .05em;
+  font-weight: 400;
+
   text-transform: uppercase;
 }
 
@@ -129,7 +132,7 @@ body {
   margin-left: auto;
   padding: 10px 10px;
   border: none;
-  background: #b84f4f;
+  background: #b84f4f;;
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: .05em;
@@ -230,7 +233,8 @@ tfoot {
 }
 
 .switch-field input:checked + label {
-  background-color: #d35f5f;
+  background-color: #b84f4f;
+  color:#e4e4e4;
   box-shadow: none;
 }
 
@@ -268,8 +272,8 @@ tfoot {
 
 .floating-label {
   position: relative;
-
-  padding-bottom: 20px;
+  padding-bottom: 25px;
+  justify-items:stretch;
 }
 
 
@@ -281,27 +285,42 @@ tfoot {
   top: 0;
   transition: 0.2s ease all;
   font-size: 16px;
-  color: #d35f5f;
 }
 
 .floating-input:focus ~ .floating-label-text,
 .floating-input:not(:placeholder-shown) ~ .floating-label-text,
 .selectBox:not(:placeholder-shown) ~ .floating-label-text {
-  top: -20px;
-  color:#d35f5f;
+
+  top: -18px;
+  color:#b84f4f;;
 }
+
 
 .switch-field {
   margin-top: 6px;
+
 }
 
 .columns{
   display:flex;
   padding-bottom: 10px;
-  justify-content:flex-start;
   column-gap: 30px;
 
+
 }
+
+input[type='number']{
+  -webkit-appearance: none;
+  width: 180px
+} 
+
+input[type='date']{
+  -webkit-appearance: none;
+  width: 180px
+} 
+
+
+
 
 
 

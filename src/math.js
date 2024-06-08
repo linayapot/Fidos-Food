@@ -70,7 +70,7 @@ export const rec_intake =
     'Val':0.16,
         
     'tfat':1.8,
-    'LA':0.36,
+    'la':0.36,
     'ala':0.014,
     'epa_dha':0.03,
 
@@ -82,7 +82,7 @@ export const rec_intake =
     'Cl':40,
     'Fe':1,
     'Cu':0.2,
-    'Zn':2,
+    'zn':2,
     'Mn':0.16,
     'Se': 11.8,
     'I': 29.6,
@@ -187,7 +187,7 @@ export const units=
     'Val':'g',
         
     'tfat':'g',
-    'LA':'g',
+    'la':'g',
     'ala':'g',
     'epa_dha':'g',
     
@@ -199,7 +199,7 @@ export const units=
     'Cl':'g',
     'Fe':'mg',
     'Cu':'mg',
-    'Zn':'mg',
+    'zn':'mg',
     'Mn':'mg',
     'Se':'μg',
     'I':'μg',
@@ -236,7 +236,7 @@ export const names=
     'Val':'Valine',
         
     'tfat':'Total Fat',
-    'LA':'Linoleic Acid',
+    'la':'Linoleic Acid',
     'ala':'Alpha Linoleic Acid',
     'epa_dha':'EPA & DHA',
     
@@ -248,7 +248,7 @@ export const names=
     'Cl':'Chlorine',
     'Fe':'Iron',
     'Cu':'Copper',
-    'Zn':'Zinc',
+    'zn':'Zinc',
     'Mn':'Manganese',
     'Se':'Selenium',
     'I':'Iodine',

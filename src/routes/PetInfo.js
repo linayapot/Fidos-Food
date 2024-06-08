@@ -2,7 +2,7 @@ import {Form,redirect} from "react-router-dom";
 import '../App.css';
 import localforage from "localforage";
 import {unitconv} from "../math.js";
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {dogBreeds} from "../dogbreed.js";
 
 async function PetInfo_Form_Callback({ request, params }) {
@@ -18,12 +18,36 @@ async function PetInfo_Form_Callback({ request, params }) {
 function PetInfo() {
 
   //for BCS slider
-
   const [value, setValue] = useState(5);
 
   const handleChange = (e) => {
     setValue(parseInt(e.target.value));
   };
+
+  // to autopopulate form with previously entered user values if user navigaetes back
+
+
+  //   const [formData, setFormData] = useState({
+  //     name: " ",
+  //     sex: "  ",
+  //     bdate: " ",
+  //     SN: " ",
+  //     weight: " ",
+  //     unit: " ",
+  //     breed: " ",
+  //     factor: " "
+  //   })};
+  
+    // useEffect(() => {
+    //   const fetchFormData = async () => {
+    //     const storedFormData = await localforage.getItem("pet");
+    //     if (storedFormData) {
+    //       setFormData(storedFormData);
+    //     }
+    //   };
+    //   fetchFormData();
+    // }, []);
+  
 
 
   return (
@@ -31,7 +55,7 @@ function PetInfo() {
       <div className="first-header">       
         Pet Info 
         <br></br>    
-        <br></br>
+
       </div>
         <Form method="post" id="doginfo">
         <ul class="flex-outer">
@@ -40,7 +64,6 @@ function PetInfo() {
               type="text"
               id="name"      
               className="floating-input"
-              defaultValue="Fido"
             />
             <label htmlFor="name" className="floating-label-text">Name</label>
             <div class="switch-field">
@@ -52,7 +75,7 @@ function PetInfo() {
 
           </li>
           {/* --------------------------------- */}
-          <div style={{display:"flex", columnGap:"45px", paddingBottom:"0px"}}>
+          <div style={{display:"flex", paddingBottom:"0px"}}>
             <li className="floating-label">
               <input required
                   id="birthdate"
@@ -120,7 +143,7 @@ function PetInfo() {
             <label htmlFor="factor" className="floating-label-text" style={{top: "-22px"}}>Lifestyle  </label>
             </li>
           {/* --------------------------------- */}
-          <label htmlFor="bcs"> Body Condition: </label>
+          <label htmlFor="bcs" style={{textTransform: "uppercase"}}>  Body Condition: </label>
           <li className="floating-label">
             <div className="container">
               <div className="value">{value}</div>
