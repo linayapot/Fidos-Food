@@ -2,10 +2,17 @@
   text-align: center;
   align-items:center;
   max-width: 400px;
-  font: normal 15x/1.5  "Fira Sans", "Helvetica Neue", sans-serif; 
-  -webkit-appearance: none;
+  font: normal "Fira Sans", "Helvetica Neue", sans-serif; 
+
+
 
 }
+
+/* input.wpcf7-form-control.wpcf7-submit {
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+} */
 
 .App-logo{
   max-width: 20vw;
@@ -34,6 +41,21 @@
   padding-bottom: 10pt;
   text-transform: uppercase;
 
+}
+
+@media only screen and (max-width:400px){
+  .first-header {
+    font-size: 2rem;
+  }
+  .selectBox {
+    font-size:15px;
+  }
+  .floating-label {
+    font-size:15px;
+  }
+  .floating-input:not(:placeholder-shown){
+    font-size:15px;
+  }
 }
 
 .second-header {
@@ -68,10 +90,9 @@ body {
 }
 
 .flex-outer {
-  -webkit-appearance: none;
   text-align: left;
   justify-content: space-evenly;
-  margin-bottom:  10px;
+  margin-bottom: 5px;
 }
 
 .flex-outer li,
@@ -95,7 +116,6 @@ body {
   /* padding: 7px; */
   font-weight: 400;
 
-  text-transform: uppercase;
 }
 
 /* cjanges width of labels */
@@ -196,6 +216,9 @@ tfoot {
   flex: 1 0 60px;
   outline:none;
   background-color: #ffffff;
+
+
+
   
 }
 
@@ -249,7 +272,6 @@ tfoot {
 
 .slider {
   width: 100%;
-  margin-bottom: px;
 }
 
 .value {
@@ -284,7 +306,7 @@ tfoot {
   left: 0;
   top: 0;
   transition: 0.2s ease all;
-  font-size: 16px;
+  font-size: 16px;  
 }
 
 .floating-input:focus ~ .floating-label-text,
@@ -292,7 +314,7 @@ tfoot {
 .selectBox:not(:placeholder-shown) ~ .floating-label-text {
 
   top: -18px;
-  color:#b84f4f;;
+  color:#b84f4f;
 }
 
 
@@ -304,20 +326,39 @@ tfoot {
 .columns{
   display:flex;
   padding-bottom: 10px;
-  column-gap: 30px;
+  column-gap: 15px;
 
 
 }
 
+/*to override ios */
+
 input[type='number']{
-  -webkit-appearance: none;
-  width: 180px
+   width: 160px;
 } 
 
 input[type='date']{
   -webkit-appearance: none;
-  width: 180px
+  width: 160px;
+  background-color: #ffffff;
+  text-align:
+
 } 
+
+input::-webkit-date-and-time-value {
+  text-align: left;
+  color:black
+}
+input[type='text']{
+  width: 160px;
+} 
+
+select{
+color:black;
+border-radius:0p
+}
+
+
 
 
 

@@ -45,29 +45,31 @@ export default function DietInfo() {
       </div>
       <Form method="post" id="dietinfo">
       <ul className="flex-outer">
+        
+      <div className="columns">
         <li className="floating-label" style={{marginTop:"15px"}}>
-        <input required 
-          id= "amountAF"
-          aria-label="Daily Amount of Food"
-          type="number"
-          name="amountAF"              
-          min="0"
-          defaultValue={300}
-          className="floating-input" 
-        />
-        <label htmlFor="amountAF" className="floating-label-text">   Daily Amount Fed </label>
-        <div className="switch-field">
-            <input type="radio" name="unit" id="g" value="g" defaultChecked={true}/>
-            <label htmlFor="g"> G</label> 
-            <input type="radio" name="unit" id="oz" value="oz"/>
-            <label htmlFor="oz"> oz </label>
-        </div>
+          <input required 
+            id= "amountAF"
+            aria-label="Daily Amount of Food"
+            type="number"
+            name="amountAF"              
+            min="0"
+            defaultValue={300}
+            className="floating-input" 
+            inputMode="numeric"
+          />
+          <label htmlFor="amountAF" className="floating-label-text" style ={{top:"-22px"}}>Daily Amount Fed* </label>
         </li>
-        {/* --------------------------------- */}
-        <div className="second-header" style={{paddingBottom:"30px"}}>
-          Guaranteed Analysis
-        </div>
-        {/* --------------------------------- */}
+
+          <li className="switch-field" style= {{alignItems: "start", paddingTop:"8px"}}>
+              <input type="radio" name="unit" id="g" value="g" defaultChecked={true}/>
+              <label htmlFor="g"> G</label> 
+              <input type="radio" name="unit" id="oz" value="oz"/>
+              <label htmlFor="oz"> oz </label>
+          </li>
+
+      </div>
+
         <div className="columns">
           <li className="floating-label" >
             <input required 
@@ -78,8 +80,9 @@ export default function DietInfo() {
               min="0"
               defaultValue={3500}
               className="floating-input"
+              inputMode="numeric"
               />
-            <label htmlFor="kcal" className="floating-label-text" style ={{top:"-22px"}}>Calorie (kcal/kg): </label>
+            <label htmlFor="kcal" className="floating-label-text" style ={{top:"-22px"}}>Calorie (kcal/kg)* </label>
           </li>
           <li className="floating-label" >
               <input required 
@@ -89,9 +92,10 @@ export default function DietInfo() {
                 name="moisture"
                 min="0"
                 defaultValue={10}
-                className="floating-input"
+                className="floating-input"              
+                inputMode="numeric"
               />
-              <label htmlFor="moisture" className="floating-label-text"style ={{top:"-22px"}} >Moisture (%):  </label>
+              <label htmlFor="moisture" className="floating-label-text"style ={{top:"-22px"}} >Moisture (%)*  </label>
           </li>
         </div>
 
@@ -106,8 +110,9 @@ export default function DietInfo() {
                 min="0"
                 defaultValue={18}
                 className="floating-input"
+                inputMode="numeric"
               />
-              <label htmlFor="cp" className="floating-label-text"  style ={{top:"-22px"}}>Crude Protein(%):  </label>
+              <label htmlFor="cp" className="floating-label-text"  style ={{top:"-22px"}}>Crude Protein(%)*  </label>
             </li>
             <li className="floating-label" >
               <input required 
@@ -118,8 +123,9 @@ export default function DietInfo() {
                 min="0"
                 defaultValue={10}
                 className="floating-input"
+                inputMode="numeric"
               />
-              <label htmlFor="tfat" className="floating-label-text" style ={{top:"-22px"}}>Crude Fat (%):  </label>
+              <label htmlFor="tfat" className="floating-label-text" style ={{top:"-22px"}}>Crude Fat (%)*  </label>
             </li>
           </div>
           {/* --------------------------------- */}
@@ -133,8 +139,9 @@ export default function DietInfo() {
                 min="0"
                 defaultValue={15}
                 className="floating-input"
+                inputMode="numeric"
               />
-              <label htmlFor="fibre" className="floating-label-text" style ={{top:"-22px"}}>Crude Fibre (%):  </label>
+              <label htmlFor="fibre" className="floating-label-text" style ={{top:"-22px"}}>Crude Fibre (%)*  </label>
             </li>
           <li className="floating-label" >
               <input 
@@ -145,13 +152,14 @@ export default function DietInfo() {
                 min="0"
                 step="0.1"
                 className="floating-input"
+                inputMode="numeric"
               />
-            <label htmlFor="Ca" className="floating-label-text" style ={{top:"-22px"}}>Calcium (%):  </label>
+            <label htmlFor="Ca" className="floating-label-text" style ={{top:"-22px"}}>Calcium (%) </label>
             </li>
           </div>
           {/* --------------------------------- */}
-          <div className="columns">
-            <li className="floating-label" >
+          <div className="columns" style={{bottomMargin:"0px"}}>
+            <li className="floating-label"  style={{paddingBottom:"5px"}}>
               <input 
                 id="P" 
                 aria-label="Minimum amount of phosphorous"
@@ -160,33 +168,28 @@ export default function DietInfo() {
                 min="0"
                 step="0.1"
                 className="floating-input"
+                inputMode="numeric"
               />
-              <label htmlFor="P" className="floating-label-text" style ={{top:"-22px"}} >Phosphorous (%):  </label>
+              <label htmlFor="P" className="floating-label-text" style ={{top:"-22px"}} >Phosphorous (%) </label>
             </li>
-            <li className="floating-label" >
+            <li className="floating-label" style={{paddingBottom:"5px"}} >
               <input 
                 id="Se" 
                 aria-label="Selenium Concentration"
                 type="number"
                 name="Se"
                 min="0"
-                max="5"
                 step="0.1"
                 className="floating-input"
-                style={{resize:"None"}}
+                inputMode="numeric"
               />
-              <label htmlFor="Se" className="floating-label-text" style ={{top:"-22px"}}>Selenium (mg/kg):  </label>
+              <label htmlFor="Se" className="floating-label-text" style ={{top:"-22px"}}>Selenium (mg/kg)  </label>
             </li>
           </div>
+          <p style={{fontSize:"12px"}}> *Mandatory information</p>
         </ul>
-      Add additional nutrients included on your guaranteed analysis using the drop down menu. 
-        <br></br>
-        <br></br>
-        Reach out to the pet food manufacturer if you'd like a more complete nutritional profile on your dog food
-        <br></br>
-        <br></br>
 
-        <select className="selectBox" onChange={handleSelectChange} style={{marginBottom:"30px"}}>
+        <select className="selectBox" onChange={handleSelectChange} >
             <option selected="true" disabled="disabled">Select Additional Nutrients</option>
           <option value="Copper (mg/kg) " name= "Cu"> Copper </option>
           <option value="DHA + EPA (%) " name= "epa_dha">DHA + EPA </option>
@@ -209,8 +212,8 @@ export default function DietInfo() {
         <ul class="flex-outer">
           {inputFields.map((option, index) => ( //renders the mapped dynamic input fields
             <li className="floating-label"  key={index}>
-              <input className="floating-input"type="text" name={option.name} /> {/* Assign unique name so it can be entered into dataobkect*/}
-              <label className="floating-label-text" style ={{top:"-22px"}}>{option.value}</label>
+              <input className="floating-input"type="number" inputMode="numeric" name={option.name} /> {/* Assign unique name so it can be entered into dataobkect*/}
+              <label className="floating-label-text" style ={{top:"-22px"}} >{option.value}</label>
               <button style={{marginLeft: "2px", paddingLeft:"6px", paddingRight:"6px",paddingTop:"3px", paddingBottom:"3px"}} onClick={(e) => handleDeleteInput(index,e)}>X</button>
             </li>
           ))}
@@ -224,6 +227,8 @@ export default function DietInfo() {
       </ul> 
 
         <p> NOTE: PPM is the same as mg/kg. These units are interchangeable</p> 
+        <br></br>
+        <p>Reach out to the pet food manufacturer if you'd like a more complete nutritional profile on your dog food</p>
 
    
 

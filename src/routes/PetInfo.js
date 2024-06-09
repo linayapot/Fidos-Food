@@ -61,6 +61,7 @@ function PetInfo() {
         <ul class="flex-outer">
           <li className="floating-label">
             <input required
+              value="Fido"
               type="text"
               id="name"      
               className="floating-input"
@@ -91,11 +92,10 @@ function PetInfo() {
             <li className="floating-label">
               <li class="switch-field" >
                 <input type="radio" name="SN" id="Y" value="Y" defaultChecked={true}/>
-                <label htmlFor="Y" >Yes</label>
+                <label htmlFor="Y">Spy/Ntrd</label>
                 <input type="radio" name="SN" id="N" value="N"/>
-                <label htmlFor="N">No</label> 
+                <label htmlFor="N">Intact</label> 
               </li>
-              <label htmlFor="SN" className="floating-label-text" style={{top: "-16px", width: "max-content"}}>Spayed/Neutered</label>
             </li>
           </div>
          {/* --------------------------------- */}  
@@ -107,6 +107,7 @@ function PetInfo() {
               type="number"
               name="weight"
               min="1"
+              inputMode="numeric"
               className="floating-input"
             />
             <label htmlFor="bodyweight" className="floating-label-text">Weight</label>
@@ -130,7 +131,7 @@ function PetInfo() {
           </li>    
           {/* --------------------------------- */}
           <li className="floating-label">
-            <select name="factor" id="factor" required class="selectBox">
+            <select name="factor" id="factor" required class="selectBox" itemStyle={{height:"32px"}}>
               <option selected value="1.6">Neutered Adult, average activity</option>
               <option value="1.8">Intact Adult, average activity</option>
               <option value="1.2">Inactive/Senior</option>
