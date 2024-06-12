@@ -326,7 +326,6 @@ tfoot {
 .floating-input:focus ~ .floating-label-text,
 .floating-input:not(:placeholder-shown) ~ .floating-label-text,
 .selectBox:not(:placeholder-shown) ~ .floating-label-text {
-
   top: -18px;
   color:#b84f4f;
 }
@@ -341,8 +340,6 @@ tfoot {
   display:flex;
   padding-bottom: 10px;
   column-gap: 15px;
-
-
 }
 
 /*to override ios */
