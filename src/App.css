@@ -2,14 +2,22 @@
   text-align: center;
   align-items:center;
   max-width: 400px;
-  font: normal 15x/1.5  "Fira Sans", "Helvetica Neue", sans-serif; 
-  -webkit-appearance: none;
+  font: normal "Fira Sans", "Helvetica Neue", sans-serif; 
+
+
 
 }
 
+/* input.wpcf7-form-control.wpcf7-submit {
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+} */
+
 .App-logo{
-  max-width: 20vw;
-  min-width: 15vw;
+  min-width: 10vw;
+  max-width:20vw;
+  max-height:15vh;
   align-items: center;
 }
 
@@ -36,6 +44,22 @@
 
 }
 
+@media only screen and (max-width:400px){
+  .first-header {
+    font-size: 2rem;
+  }
+  .selectBox {
+    font-size:15px;
+  }
+  .floating-label {
+    font-size:15px;
+  }
+  .floating-input:not(:placeholder-shown){
+    font-size:15px;
+    padding-top: 5px;
+  }
+}
+
 .second-header {
   display: flex;
   align-items: center;
@@ -55,7 +79,7 @@ body {
   display: grid;
   place-items: center;
   margin-bottom: 10px;  
-  border-radius:0px;
+  /* border-radius:0px; */
   
 }
 /*formating for input boxes */
@@ -68,10 +92,9 @@ body {
 }
 
 .flex-outer {
-  -webkit-appearance: none;
   text-align: left;
   justify-content: space-evenly;
-  margin-bottom:  10px;
+  margin-bottom: 5px;
 }
 
 .flex-outer li,
@@ -95,7 +118,6 @@ body {
   /* padding: 7px; */
   font-weight: 400;
 
-  text-transform: uppercase;
 }
 
 /* cjanges width of labels */
@@ -126,10 +148,10 @@ body {
 
 
 
-.flex-outer li button {
+.button {
   margin-top: 2px;
   margin-bottom: 2px;
-  margin-left: auto;
+  /* margin-left: auto; */
   padding: 10px 10px;
   border: none;
   background: #b84f4f;;
@@ -139,8 +161,26 @@ body {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
 }
 
-.flex-outer li button:hover {
+.button:hover {
   background-color: #853838;
+  transition: 0.3s;
+}
+
+.button2 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-right: 10px;
+  padding: 10px 10px;
+  border: none;
+  background: #c87f7f;;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.button2:hover {
+  background-color: #a05454;
   transition: 0.3s;
 }
 
@@ -163,7 +203,7 @@ th,
 td {
   padding: 8px;
   text-align: left;
-  border: npne;
+  border: none;
 }
 tr:nth-child(even) { 
   background-color: #c08383; 
@@ -195,8 +235,7 @@ tfoot {
   padding: 8px;
   flex: 1 0 60px;
   outline:none;
-  background-color: #ffffff;
-  
+  background-color: #ffffff;  
 }
 
 /* toggle */
@@ -216,15 +255,13 @@ tfoot {
 }
 
 .switch-field label {
-  background-color: #e4e4e4;
   color: rgba(0, 0, 0, 0.6);
   line-height: 1;
   text-align: center;
   padding: 7px 16px;
-  margin-right: -1px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-  transition: all 0.1s ease-in-out;
+  /* transition: all 0.1s ease-in-out; */
 
 }
 
@@ -249,7 +286,6 @@ tfoot {
 
 .slider {
   width: 100%;
-  margin-bottom: px;
 }
 
 .value {
@@ -284,15 +320,14 @@ tfoot {
   left: 0;
   top: 0;
   transition: 0.2s ease all;
-  font-size: 16px;
+  font-size: 16px;  
 }
 
 .floating-input:focus ~ .floating-label-text,
 .floating-input:not(:placeholder-shown) ~ .floating-label-text,
 .selectBox:not(:placeholder-shown) ~ .floating-label-text {
-
   top: -18px;
-  color:#b84f4f;;
+  color:#b84f4f;
 }
 
 
@@ -304,24 +339,76 @@ tfoot {
 .columns{
   display:flex;
   padding-bottom: 10px;
-  column-gap: 30px;
-
-
+  column-gap: 15px;
 }
 
+/*to override ios */
+
 input[type='number']{
-  -webkit-appearance: none;
-  width: 180px
+   width: 160px;
 } 
 
 input[type='date']{
   -webkit-appearance: none;
-  width: 180px
+  width: 160px;
+  background-color: #ffffff;
+  text-align:
+
 } 
 
+input::-webkit-date-and-time-value {
+  text-align: left;
+  color:black
+}
+input[type='text']{
+  width: 160px;
+} 
+
+select{
+color:black;
+border-radius:0p
+}
 
 
 
+
+/* for Me visualization */
+.me-visualization {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.me-visualization .bar {
+  position: relative;
+  height: 30px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+
+.me-visualization .range {
+  position: relative;
+  height: 100%;
+  background-color: #d3d3d3;
+  border-radius: 15px;
+}
+
+.me-visualization .marker {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 30px; /* Increased height */
+  width: 20px;  /* Increased width */
+  background-color: red;
+}
+
+
+.me-visualization .labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin-top: 5px;
+}
 
 
 

@@ -37,7 +37,7 @@ function TransformDataForDisplay(user_data, names, units,rec_intake, SUL){
   let mbw=user_data.pet.mbw
   const output= []
   for (const key in user_data.diet){
-    if (['kcal', 'unit', 'carb', 'intake','amountAF','fibre','moisture', 'glucosamine'].includes(key) || user_data.diet[key] == "")
+    if (['kcal', 'unit', 'carb', 'amountAFmetric','amountAF','fibre','moisture', 'glucosamine'].includes(key) || user_data.diet[key] == "")
   	{ }
     else
       {
@@ -90,41 +90,65 @@ function glucosamineCheck(user_data){
     console.log("There is no glucosamine key in the userdata object")
   }
   else{
-    console.log( user_data.pet.weight)
-    if (user_data.pet.weight <= 9){
+    console.log( user_data.pet.metricweight)
+    if (user_data.pet.metricweight <= 9){
       recGlucosamine = "250 - 500 mg per day. "
     }
-    else if (user_data.pet.weight > 9 &&  user_data.pet.weight <= 19 ){
+    else if (user_data.pet.metricweight > 9 &&  user_data.pet.metricweight <= 19 ){
       recGlucosamine = "500 - 1,000 mg per day. "
     }
-    else if (user_data.pet.weight > 19 &&  user_data.pet.weight <= 45 ){
+    else if (user_data.pet.metricweight > 19 &&  user_data.pet.metricweight <= 45 ){
       recGlucosamine = "1,000 - 1,500 mg per day. "
     }
-    else if (user_data.pet.weight <= 45){
+    else if (user_data.pet.metricweight <= 45){
       recGlucosamine = "at least 1,500 mg per day. "
     }
     let glucosamineIntake = user_data.diet.amountAF/1000*user_data.diet.glucosamine
-    let glucosamineSatement = "Your pet food provides " + glucosamineIntake + " mg  of glucosamine per day. For " + user_data.pet.dogname +"'s size, the recommeneded amount of glucosamine for joint health is " + recGlucosamine + "Based on the available literature, the joint health benefits of glucosamine cannnot be confirmed nor denied. Clinical trials have yielded mixed results."
+    let glucosamineSatement = "Your pet food provides " + glucosamineIntake + " mg  of glucosamine per day. For " + user_data.pet.name +"'s size, the recommeneded amount of glucosamine for joint health is " + recGlucosamine + "Due to mixed results in clinical trials, the benefits of glucosamine cannot be confirmed."
     output.push(glucosamineSatement);
     return output
   }
 }
+
+//Calculate the range for ME_Req
+
+function MEVisualization({ MEReq, MEIntake }) {
+  const lowerBound = Math.round(MEReq * 0.75)
+  const upperBound = MEReq * 1.25;
+  const percentage = ((MEIntake - lowerBound) / (upperBound - lowerBound)) * 100;
  
-export default function Results() {
+  return (
+    <div className="me-visualization">
+      <div className="bar">
+        <div className="range" style={{ width: '100%' }}>
+          <div className="marker" style={{ left: `${percentage}%` }}></div>
+        </div>
+      </div>
+      <div className="labels">
+        <span>{lowerBound.toFixed(2)}</span>
+        <span>{upperBound.toFixed(2)}</span>
+      </div>
+    </div>
+  );
+}
+
+  export default function Results() {
   const user_data  = useLoaderData();
-  console.log(user_data)
   const resultsdata = TransformDataForDisplay(user_data, names, units,rec_intake,SUL)
-  console.log(resultsdata)
-  console.log(warningStatements(resultsdata))
   const arrayWarningStatements = warningStatements(resultsdata)
   const glucosamineSatement = glucosamineCheck(user_data);
   /* Mapping the warningStatements into a new array of JSX nodes as arrayDataItems */
   const arrayToRender = arrayWarningStatements.map((warning) => <li>{warning}</li>);
+
+  const MEReqValue = ME_Req(user_data.pet.metricweight, user_data.pet.factor);
+  const MEIntakeValue = ME_Intake(user_data.diet.kcal, user_data.diet.amountAF);
   return (
     <div className="App">
       <div className="first-header"> 
-        Results
-      </div>     
+        {user_data.pet.name}'s Results
+      </div>  
+
+      <MEVisualization MEReq={MEReqValue} MEIntake={MEIntakeValue} />   
 
       <table>
         <thead>
@@ -140,13 +164,13 @@ export default function Results() {
           <tr>
             <td>Metabolizable Energy</td>
             <td>kcal</td>
-            <td>{ME_Req(user_data.pet.weight,user_data.pet.factor)                }
+            <td>{ME_Req(user_data.pet.metricweight,user_data.pet.factor)                }
             </td>
             <td>
               {ME_Intake(user_data.diet.kcal,user_data.diet.amountAF)}
             </td>
             <td>
-              {Math.round((ME_Intake(user_data.diet.kcal,user_data.diet.amountAF)/(ME_Req(user_data.pet.weight,user_data.pet.factor))*100))}%
+              {Math.round((ME_Intake(user_data.diet.kcal,user_data.diet.amountAF)/(ME_Req(user_data.pet.metricweight,user_data.pet.factor))*100))}%
             </td>
           </tr>
 

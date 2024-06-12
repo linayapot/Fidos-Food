@@ -4,7 +4,7 @@ import {  Link} from "react-router-dom";
 
 function App () {
   return (
-    <div className="App">
+    <div className="App" style={{ maxWidth:"600px"}}>
       <img src={logo} className="App-logo"  alt="doglogo" />
       <div className='second-header'>
         How is your dogs nutrition?
