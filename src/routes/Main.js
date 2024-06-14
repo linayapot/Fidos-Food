@@ -1,6 +1,6 @@
 import logo from '../logo.svg';
 import '../App.css';
-import {  Link} from "react-router-dom";
+import { Link} from "react-router-dom";
 
 function App () {
   return (
@@ -10,16 +10,20 @@ function App () {
         How is your dogs nutrition?
       </div>
       <p>
-        Use this calculator to check if your dog's nutrient requirements are being met. <br/>
-
-      <br></br>
-        Estimated nutrient requirements are based on National Research Council's Nutrient Requirements of Cats and Dogs, 2006
+        <br/>
+        This simple calculator helps determine if your dog's nutrient needs are being met by their current dog food.
+        <br></br>
+        <br></br>
+         Weigh your dog's <b>daily</b> food intake using a kitchen scale. 
+         <br></br>
+         <br></br>
+         Nutrient requirements are based on the 2006 National Research Council's "Nutrient Requirements of Cats and Dogs."
       </p>
-      <br></br>
-      <br></br>
       <div className='first-header'>
-          <Link to={`/PetInfo`}>START</Link>     
-      </div>    
+      <Link to="/PetInfo">
+        <button type="button" className="button2">START</button>
+    </Link>     
+    </div> 
 
     </div>);
   }
