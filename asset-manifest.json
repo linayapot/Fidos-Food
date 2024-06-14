@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Fidos-Food/static/css/main.0fbc3c66.css",
-    "main.js": "/Fidos-Food/static/js/main.b5a8521d.js",
+    "main.css": "/Fidos-Food/static/css/main.a5210934.css",
+    "main.js": "/Fidos-Food/static/js/main.5fc0e153.js",
     "static/media/logo.svg": "/Fidos-Food/static/media/logo.5ef357024d3a8930ce4155fbfb7e45ae.svg",
     "index.html": "/Fidos-Food/index.html",
-    "main.0fbc3c66.css.map": "/Fidos-Food/static/css/main.0fbc3c66.css.map",
-    "main.b5a8521d.js.map": "/Fidos-Food/static/js/main.b5a8521d.js.map"
+    "main.a5210934.css.map": "/Fidos-Food/static/css/main.a5210934.css.map",
+    "main.5fc0e153.js.map": "/Fidos-Food/static/js/main.5fc0e153.js.map"
   },
   "entrypoints": [
-    "static/css/main.0fbc3c66.css",
-    "static/js/main.b5a8521d.js"
+    "static/css/main.a5210934.css",
+    "static/js/main.5fc0e153.js"
   ]
 }
