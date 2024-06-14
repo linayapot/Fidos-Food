@@ -111,6 +111,7 @@ export default function DietInfo() {
             min="0"
             className="floating-input" 
             inputMode="numeric"
+            step="0.1"
             value={formData.amountAF}
             onChange={(e) => setFormData({ ...formData, amountAF: e.target.value })}  
           />
@@ -230,6 +231,7 @@ export default function DietInfo() {
                 min="0"
                 className="floating-input"
                 inputMode="numeric"
+                step="0.1"
                 value={formData.Ca}
                 onChange={(e) => setFormData({ ...formData, Ca: e.target.value })}  
               />
@@ -247,6 +249,7 @@ export default function DietInfo() {
                 min="0"
                 className="floating-input"
                 inputMode="numeric"
+                step="0.1"
                 value={formData.P}
                 onChange={(e) => setFormData({ ...formData, P: e.target.value })}  
               />
@@ -261,6 +264,7 @@ export default function DietInfo() {
                 min="0"
                 className="floating-input"
                 inputMode="numeric"
+                step="0.11"
                 value={formData.Se}
                 onChange={(e) => setFormData({ ...formData, Se: e.target.value })}  
               />
@@ -285,6 +289,7 @@ export default function DietInfo() {
           <option value="Omega-6 FA (%) " >Omega-6 Fatty Acid</option>
           <option value="Sodium (%) " name= "Na"> Sodium </option>          
           <option value="Vitamin A (IU/kg) " name="vitA">Vitamin A</option>
+          <option value="Vitamin E (IU/kg) " name="vitE">Vitamin E</option>
           <option value="Vitamin D (IU/kg) " name="vitD">Vitamin D</option>
           <option value="Zinc (mg/kg) " name= "Zn"> Zinc </option>
 
@@ -299,6 +304,7 @@ export default function DietInfo() {
                 inputMode="numeric" 
                 name={option.name}
                 value={option.inputValue}
+                step="0.1"
                 onChange={(e) => handleInputFieldChange(index, e)}
               />{/* Assign unique name so it can be entered into dataobkect*/}
               <label className="floating-label-text" style ={{top:"-22px"}} >{option.value}</label>

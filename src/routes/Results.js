@@ -59,8 +59,8 @@ function TransformDataForDisplay(user_data, names, units,rec_intake, SUL){
 
         output.push( {"name":names[key],
                 "units":units[key],
-                "req": Math.round(req),
-                "intake": intake.toFixed(0),
+                "req": req.toFixed(1),
+                "intake": intake.toFixed(1),
                 "perc":Math.round((intake/req)*100),
                 "max": Math.round(max)
                 })      
@@ -87,10 +87,8 @@ function glucosamineCheck(user_data){
   const output=[]
   let recGlucosamine
   if ( !("glucosamine" in user_data.diet) == true){
-    console.log("There is no glucosamine key in the userdata object")
   }
   else{
-    console.log( user_data.pet.metricweight)
     if (user_data.pet.metricweight <= 9){
       recGlucosamine = "250 - 500 mg per day. "
     }
@@ -103,8 +101,8 @@ function glucosamineCheck(user_data){
     else if (user_data.pet.metricweight <= 45){
       recGlucosamine = "at least 1,500 mg per day. "
     }
-    let glucosamineIntake = user_data.diet.amountAF/1000*user_data.diet.glucosamine
-    let glucosamineSatement = "Your pet food provides " + glucosamineIntake + " mg  of glucosamine per day. For " + user_data.pet.name +"'s size, the recommeneded amount of glucosamine for joint health is " + recGlucosamine + "Due to mixed results in clinical trials, the benefits of glucosamine cannot be confirmed."
+    let glucosamineIntake = user_data.diet.amountAF/1000*user_data.diet.glucosamine  
+    let glucosamineSatement = "Joint Health Ingredients: Your pet food provides " + glucosamineIntake + " mg  of glucosamine per day. For " + user_data.pet.name +"'s size, the recommeneded amount of glucosamine for joint health is " + recGlucosamine + "Due to mixed results in clinical trials, the benefits of glucosamine cannot be confirmed."
     output.push(glucosamineSatement);
     return output
   }
@@ -112,21 +110,43 @@ function glucosamineCheck(user_data){
 
 //Calculate the range for ME_Req
 
-function MEVisualization({ MEReq, MEIntake }) {
-  const lowerBound = Math.round(MEReq * 0.75)
-  const upperBound = MEReq * 1.25;
-  const percentage = ((MEIntake - lowerBound) / (upperBound - lowerBound)) * 100;
- 
+function MEVisualization({ MEReq, MEIntake}) {
+  const lowerBound50 = MEReq * 0.5;
+  const upperBound50 = MEReq * 1.5;
+  const lowerBound25 = MEReq * 0.75;
+  const upperBound25 = MEReq * 1.25;
+
+  // Calculate the percentage position of the marker
+  let percentage;
+  let intakeLabelPosition;
+
+  if (MEIntake < lowerBound50) {
+    percentage = -52; // Position just outside the left side of the bar
+    intakeLabelPosition = '0%';
+  } else if (MEIntake > upperBound50) {
+    percentage = 152; // Position just outside the right side of the bar
+    intakeLabelPosition = '100%';
+  } else {
+    percentage = ((MEIntake - lowerBound50) / (upperBound50 - lowerBound50)) * 100;
+    intakeLabelPosition = `${percentage}%`;
+  }
+
   return (
     <div className="me-visualization">
       <div className="bar">
-        <div className="range" style={{ width: '100%' }}>
-          <div className="marker" style={{ left: `${percentage}%` }}></div>
+        <div className="range-50" style={{ width: '100%' }}>
+          <div className="range-25" style={{ left: '25%', width: '50%' }}>
+            <div className="marker" style={{ left: `${percentage}%` }}>
+              <div className="intake-label" style={{ left: intakeLabelPosition }}>
+                {MEIntake.toFixed(0)}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="labels">
-        <span>{lowerBound.toFixed(2)}</span>
-        <span>{upperBound.toFixed(2)}</span>
+        <span>{lowerBound25.toFixed(0)}</span>
+        <span>{upperBound25.toFixed(0)}</span>
       </div>
     </div>
   );
@@ -137,19 +157,35 @@ function MEVisualization({ MEReq, MEIntake }) {
   const resultsdata = TransformDataForDisplay(user_data, names, units,rec_intake,SUL)
   const arrayWarningStatements = warningStatements(resultsdata)
   const glucosamineSatement = glucosamineCheck(user_data);
+  
   /* Mapping the warningStatements into a new array of JSX nodes as arrayDataItems */
   const arrayToRender = arrayWarningStatements.map((warning) => <li>{warning}</li>);
-
   const MEReqValue = ME_Req(user_data.pet.metricweight, user_data.pet.factor);
-  const MEIntakeValue = ME_Intake(user_data.diet.kcal, user_data.diet.amountAF);
+  const MEIntakeValue = ME_Intake(user_data.diet.kcal, user_data.diet.amountAFmetric);
+  const lowerBound50 = MEReqValue * 0.5;
+  const upperBound50 = MEReqValue * 1.5;
+  const lowerBound25 = MEReqValue * 0.75;
+  const upperBound25 = MEReqValue * 1.25;
+
   return (
     <div className="App">
       <div className="first-header"> 
         {user_data.pet.name}'s Results
       </div>  
-
+      <div> 
+       <strong style={{fontSize:"18px", marginBottom:"10px"}}> Metabolizable Energy Requirements</strong>
+      </div>
+      <div style={{textAlign:"left"}}>
+      Predicted energy requirement: {lowerBound25} - {upperBound25} kcal 
+      <br></br>
+      Current energy intake: {MEIntakeValue} kcal
+      </div>
+      <div style={{paddingTop:"18px"}}>
       <MEVisualization MEReq={MEReqValue} MEIntake={MEIntakeValue} />   
-
+      </div>
+      <div> 
+       <strong style={{fontSize:"18px"}}> Nutrient Requirements</strong>
+      </div>
       <table>
         <thead>
           <tr>
@@ -161,18 +197,7 @@ function MEVisualization({ MEReq, MEIntake }) {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Metabolizable Energy</td>
-            <td>kcal</td>
-            <td>{ME_Req(user_data.pet.metricweight,user_data.pet.factor)                }
-            </td>
-            <td>
-              {ME_Intake(user_data.diet.kcal,user_data.diet.amountAF)}
-            </td>
-            <td>
-              {Math.round((ME_Intake(user_data.diet.kcal,user_data.diet.amountAF)/(ME_Req(user_data.pet.metricweight,user_data.pet.factor))*100))}%
-            </td>
-          </tr>
+
 
           {resultsdata.map(
             (arr_item) => <NutrientRow //down the road enter the props from a list instead of individual props
@@ -197,7 +222,15 @@ function MEVisualization({ MEReq, MEIntake }) {
   {arrayToRender.length > 0 ? <h2>WARNING </h2>: null}
   {/* returning arraWarningStatements wrapped in <ul> */}
   <ul className="flex-outer">{arrayToRender}</ul>
-</div>
+  </div>
+  <div style={{fontSize:"12px", margin:"10px"}}>
+    Predictions of energy requirements can be innacurate. 
+    Use body condition scores to determine if your pet's caloric intake needs to be adjusted. 
+  </div>
+  <div style={{fontSize:"12px"}}>
+  This calculator is designed as a helpful tool for pet owners and should not be interpreted as nutritional advice. 
+  Always consult with a pet nutritionist or veterinarian before making any changes to your dog's diet. 
+  </div>
 
     </div>
   );
