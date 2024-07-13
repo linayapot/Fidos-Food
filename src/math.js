@@ -236,8 +236,8 @@ export const names=
     'Val':'Valine',
         
     'tfat':'Total Fat',
-    'la':'Linoleic Acid',
-    'ala':'Alpha Linoleic Acid',
+    'ala':'Omega-3 Fatty Acids',
+    'la':'Omega-6 Fatty Acids',
     'epa_dha':'EPA & DHA',
     
     'Ca':'Calcium',

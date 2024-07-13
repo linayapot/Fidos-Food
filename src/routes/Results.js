@@ -2,6 +2,7 @@ import {useLoaderData} from "react-router-dom";
 import '../App.css';
 import localforage from "localforage";
 import {ME_Req, ME_Intake, rec_intake, SUL, names, units} from "../math.js";
+import {weblinks, nutrientNotes} from "../productInfo.js"
 
 export async function loader() {
   let pet = await localforage.getItem("pet")
@@ -38,10 +39,11 @@ function TransformDataForDisplay(user_data, names, units,rec_intake, SUL){
   const output= []
   for (const key in user_data.diet){
     if (['kcal', 'unit', 'carb', 'amountAFmetric','amountAF','fibre','moisture', 'glucosamine'].includes(key) || user_data.diet[key] == "")
-  	{ }
+  	  { }
     else
       {
         let intake
+        let def
         let req= rec_intake[key]*mbw
         let max= SUL[key]*mbw
         if (units[key]=='g'){
@@ -57,16 +59,27 @@ function TransformDataForDisplay(user_data, names, units,rec_intake, SUL){
           intake =((user_data.diet.amountAFmetric/1000)*user_data.diet[key])/3.33           
         }
 
-        output.push( {"name":names[key],
-                "units":units[key],
-                "req": req.toFixed(1),
-                "intake": intake.toFixed(1),
-                "perc":Math.round((intake/req)*100),
-                "max": Math.round(max)
-                })      
+        if (intake/req < 1){
+          def='Y'
+        }
+        else {
+          def='N'
+        }
+
+        output.push({
+          "id":key,
+          "name":names[key],
+          "units":units[key],
+          "req": req.toFixed(1),
+          "intake": intake.toFixed(1),
+          "perc":Math.round((intake/req)*100),
+          "max": Math.round(max),
+          "def":def
+        })       
       }
-  }
-return output
+    }
+  console.log(output)
+  return output
 }
 
 function warningStatements (resultsdata){
@@ -87,6 +100,7 @@ function glucosamineCheck(user_data){
   const output=[]
   let recGlucosamine
   if ( !("glucosamine" in user_data.diet) == true){
+    return output
   }
   else{
     if (user_data.pet.metricweight <= 9){
@@ -102,10 +116,35 @@ function glucosamineCheck(user_data){
       recGlucosamine = "at least 1,500 mg per day. "
     }
     let glucosamineIntake = user_data.diet.amountAFmetric/1000*user_data.diet.glucosamine  
-    let glucosamineSatement = "Joint Health Ingredients: Your pet food provides " + glucosamineIntake + " mg  of glucosamine per day. For " + user_data.pet.name +"'s size, the recommeneded amount of glucosamine for joint health is " + recGlucosamine + "Due to mixed results in clinical trials, the benefits of glucosamine cannot be confirmed."
+    let glucosamineSatement = "Your pet food provides " + glucosamineIntake + " mg  of glucosamine per day. For " + user_data.pet.name +"'s size, the amount recommended for joint health is " + recGlucosamine + "Due to mixed results in clinical trials, the benefits of glucosamine cannot be confirmed."
     output.push(glucosamineSatement);
     return output
   }
+}
+
+
+function deficiencySolutions (resultsdata, weblinks){
+  const output=[]
+  let toAdd
+  let key
+  for(var i=0;i<resultsdata.length;i++){
+    if (resultsdata[i].def === 'Y'){
+        toAdd = (resultsdata[i].req - resultsdata[i].intake)*1.25
+         
+        output.push({
+          "name":resultsdata[i].name,
+          "units":resultsdata[i].units,
+          "toAdd": toAdd,
+          "webLinks": weblinks[resultsdata[i].id]
+
+        })
+      }
+    else{}
+  }  
+console.log(output)
+return output
+
+
 }
 
 //Calculate the range for ME_Req
@@ -152,22 +191,38 @@ function MEVisualization({ MEReq, MEIntake}) {
   );
 }
 
+//determine pronoun for dog
+
+function determinePronoun (sex){
+  let pronoun;
+  if (sex == 'male'){
+    pronoun = 'his';
+  }
+  else {
+    pronoun = 'her';
+  }
+  return pronoun;
+}
+
   export default function Results() {
   const user_data  = useLoaderData();
   const resultsdata = TransformDataForDisplay(user_data, names, units,rec_intake,SUL)
   const arrayWarningStatements = warningStatements(resultsdata)
   const glucosamineSatement = glucosamineCheck(user_data);
-
-  console.log(user_data);
   
   /* Mapping the warningStatements into a new array of JSX nodes as arrayDataItems */
   const arrayToRender = arrayWarningStatements.map((warning) => <li>{warning}</li>);
+
   const MEReqValue = ME_Req(user_data.pet.metricweight, user_data.pet.factor);
   const MEIntakeValue = ME_Intake(user_data.diet.kcal, user_data.diet.amountAFmetric);
   const lowerBound50 = MEReqValue * 0.5;
   const upperBound50 = MEReqValue * 1.5;
   const lowerBound25 = MEReqValue * 0.75;
   const upperBound25 = MEReqValue * 1.25;
+  const pronoun =determinePronoun(user_data.pet.sex);
+
+  console.log(resultsdata)  
+  console.log(listDef)
 
   return (
     <div className="App">
@@ -175,18 +230,19 @@ function MEVisualization({ MEReq, MEIntake}) {
         {user_data.pet.name}'s Results
       </div>  
       <div> 
-       <strong style={{fontSize:"18px", marginBottom:"10px"}}> Metabolizable Energy Requirements</strong>
-      </div>
-      <div style={{textAlign:"left"}}>
-      Predicted energy requirement: {lowerBound25} - {upperBound25} kcal 
-      <br></br>
-      Current energy intake: {MEIntakeValue} kcal
+       <strong style={{fontSize:"18px", marginBottom:"10px"}}> Energy Requirements</strong>
       </div>
       <div style={{paddingTop:"18px"}}>
-      <MEVisualization MEReq={MEReqValue} MEIntake={MEIntakeValue} />   
+        <MEVisualization MEReq={MEReqValue} MEIntake={MEIntakeValue} />   
       </div>
-      <div> 
-       <strong style={{fontSize:"18px"}}> Nutrient Requirements</strong>
+      <div style={{marginTop:"15px",marginBottom:"15px", textAlign:"left"}}>
+        The red bar shows {user_data.pet.name}'s estimated energy requirement range, while the red marker indicates {pronoun} <b>current </b>enegy intake ({MEIntakeValue} kcal).
+      <br></br><br></br>
+      Predictions of energy requirements can be innacurate. 
+      Use body condition scoring to determine if your pet's caloric intake needs to be adjusted. 
+      </div>
+      <div style={{fontSize:"18px", paddingTop:"20px"}}> 
+       <strong > Nutrient Requirements</strong>
       </div>
       <table>
         <thead>
@@ -199,10 +255,8 @@ function MEVisualization({ MEReq, MEIntake}) {
           </tr>
         </thead>
         <tbody>
-
-
           {resultsdata.map(
-            (arr_item) => <NutrientRow //down the road enter the props from a list instead of individual props
+            (arr_item) => <NutrientRow 
                             key={arr_item.name} 
                             name={arr_item.name}
                             units={arr_item.units}
@@ -213,26 +267,20 @@ function MEVisualization({ MEReq, MEIntake}) {
                           />)}   
         </tbody>
       </table>
+      <br></br>
+      {arrayToRender.length > 0 ? <h2 >WARNING </h2>: null}
+        {/* returning arraWarningStatements wrapped in <ul> */}
+       <ul className="flex-outer" style={{ marginBottom:"15px"}} >{arrayToRender}</ul>
 
-      <div>
+      {glucosamineSatement.length > 0 ? <p style={{fontSize:"18px", marginBottom:"10px", fontWeight:"bold"}}> Joint Health Ingredients </p>: null}
+        <div>{glucosamineSatement}</div>
 
-<br></br>
-<div>
-  {glucosamineSatement}
-</div>
-  <br></br>
-  {arrayToRender.length > 0 ? <h2>WARNING </h2>: null}
-  {/* returning arraWarningStatements wrapped in <ul> */}
-  <ul className="flex-outer">{arrayToRender}</ul>
-  </div>
-  <div style={{fontSize:"12px", margin:"10px"}}>
-    Predictions of energy requirements can be innacurate. 
-    Use body condition scores to determine if your pet's caloric intake needs to be adjusted. 
-  </div>
-  <div style={{fontSize:"12px"}}>
-  This calculator is designed as a helpful tool for pet owners and should not be interpreted as nutritional advice. 
-  Always consult with a pet nutritionist or veterinarian before making any changes to your dog's diet. 
-  </div>
+      {resultsdata.some(item => item.def === 'Y') ? <p style={{fontSize:"18px", marginBottom:"10px", fontWeight:"bold"}}> Correct Deficiencies </p>: null}
+   
+      <div style={{fontSize:"12px", marginTop:"10px"}}>
+        This calculator is designed as a helpful tool for pet owners and should not be interpreted as nutritional advice. 
+        Always consult with a pet nutritionist or veterinarian before making any changes to your dog's diet. 
+      </div>
 
     </div>
   );

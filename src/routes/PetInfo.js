@@ -83,7 +83,7 @@ function PetInfo() {
                 name="sex" 
                 id="male" 
                 value="male" 
-                checked={formData.sex === 'male'}
+                checked={formData.sex == 'male'}
                 onChange={() => setFormData({ ...formData, sex: 'male' })}
               />
               <label htmlFor="male">Male</label>
@@ -92,7 +92,7 @@ function PetInfo() {
                 name="sex" 
                 id="female" 
                 value="female"
-                checked={formData.sex === 'female'}
+                checked={formData.sex == 'female'}
                 onChange={() => setFormData({ ...formData, sex: 'female' })}
               />
               <label htmlFor="female">Female</label> 
@@ -198,14 +198,14 @@ function PetInfo() {
               value={formData.factor}
               onChange={(e) => setFormData({ ...formData, factor: e.target.value })}
             >
-              <option value="1.6">Neutered Adult, average activity</option>
-              <option value="1.8">Intact Adult, average activity</option>
-              <option value="1.2">Inactive/Senior</option>
+              <option value="1.2">Adult, Inactive or Senior</option>
+              <option value="1.6">Adult, Active & Neutered</option>
+              <option value="1.8">Adult, Active & Intact</option>
               <option value="2">Working Dog (light work)</option>
               <option value="3">Working Dog (medium work)</option>
               <option value="4">Working Dog (heavy work)</option>
-              <option value="3">Puppy (0 - 4 months) </option>
-              <option value="2">Puppy (4 - 12 months) </option>
+            {/*<option value="3">Puppy (0 - 4 months) </option>
+             //<option value="2">Puppy (4 - 12 months) </option>*/}
             </select>
             <label htmlFor="factor" className="floating-label-text" style={{top: "-22px"}}>Lifestyle  </label>
             </li>
