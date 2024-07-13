@@ -45,16 +45,16 @@ function TransformDataForDisplay(user_data, names, units,rec_intake, SUL){
         let req= rec_intake[key]*mbw
         let max= SUL[key]*mbw
         if (units[key]=='g'){
-          intake = user_data.diet.amountAF*(user_data.diet[key]/100)
+          intake = user_data.diet.amountAFmetric*(user_data.diet[key]/100)
           }
         else if (units[key]== 'mg'){
-          intake =(user_data.diet.amountAF/1000)*user_data.diet[key]              
+          intake =(user_data.diet.amountAFmetric/1000)*user_data.diet[key]              
         }
         else if (units[key]== 'μg'){ 
-          intake =(user_data.diet.amountAF*user_data.diet[key])            
+          intake =(user_data.diet.amountAFmetric*user_data.diet[key])            
         }
         else if (units[key]== 'RE'){
-          intake =((user_data.diet.amountAF/1000)*user_data.diet[key])/3.33           
+          intake =((user_data.diet.amountAFmetric/1000)*user_data.diet[key])/3.33           
         }
 
         output.push( {"name":names[key],
@@ -101,7 +101,7 @@ function glucosamineCheck(user_data){
     else if (user_data.pet.metricweight <= 45){
       recGlucosamine = "at least 1,500 mg per day. "
     }
-    let glucosamineIntake = user_data.diet.amountAF/1000*user_data.diet.glucosamine  
+    let glucosamineIntake = user_data.diet.amountAFmetric/1000*user_data.diet.glucosamine  
     let glucosamineSatement = "Joint Health Ingredients: Your pet food provides " + glucosamineIntake + " mg  of glucosamine per day. For " + user_data.pet.name +"'s size, the recommeneded amount of glucosamine for joint health is " + recGlucosamine + "Due to mixed results in clinical trials, the benefits of glucosamine cannot be confirmed."
     output.push(glucosamineSatement);
     return output
@@ -157,6 +157,8 @@ function MEVisualization({ MEReq, MEIntake}) {
   const resultsdata = TransformDataForDisplay(user_data, names, units,rec_intake,SUL)
   const arrayWarningStatements = warningStatements(resultsdata)
   const glucosamineSatement = glucosamineCheck(user_data);
+
+  console.log(user_data);
   
   /* Mapping the warningStatements into a new array of JSX nodes as arrayDataItems */
   const arrayToRender = arrayWarningStatements.map((warning) => <li>{warning}</li>);
