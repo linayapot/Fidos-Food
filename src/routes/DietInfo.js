@@ -264,15 +264,14 @@ export default function DietInfo() {
                 min="0"
                 className="floating-input"
                 inputMode="numeric"
-                step="0.11"
+                step="0.01"
                 value={formData.Se}
                 onChange={(e) => setFormData({ ...formData, Se: e.target.value })}  
               />
               <label htmlFor="Se" className="floating-label-text" style ={{top:"-22px"}}>Selenium (mg/kg)  </label>
             </li>
           </div>
-          <p style={{fontSize:"12px"}}> *Mandatory information</p>
-        </ul>
+       </ul>
 
         <select className="selectBox" onChange={handleSelectChange} style={{marginBottom:"25px"}} >
           <option selected="true" disabled="disabled">Select Additional Nutrients</option>
@@ -286,7 +285,7 @@ export default function DietInfo() {
           <option value="Magnesium (%) " name= "Mg"> Magnesium </option>
           <option value="Methionine (%) " name= "Met"> Methionine </option>
           <option value="Omega-3 FA (%) "name="ala">Omega-3 Fatty Acid</option>
-          <option value="Omega-6 FA (%) " >Omega-6 Fatty Acid</option>
+          <option value="Omega-6 FA (%) " name="la" >Omega-6 Fatty Acid</option>
           <option value="Sodium (%) " name= "Na"> Sodium </option>          
           <option value="Vitamin A (IU/kg) " name="vitA">Vitamin A</option>
           <option value="Vitamin E (IU/kg) " name="vitE">Vitamin E</option>
