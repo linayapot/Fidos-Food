@@ -32,6 +32,47 @@ export function NutrientRow(props){ //component name must start with capital; th
   );
 }
 
+
+
+function deficiencySolutions (resultsdata, nutrientNotes){
+  const output=[]
+  let toAdd
+   for(var i=0;i<resultsdata.length;i++){
+    if (resultsdata[i].def === 'Y'){
+        toAdd = (resultsdata[i].req - resultsdata[i].intake)*1.25
+         
+        output.push({
+          "name":resultsdata[i].name + ":",
+          "units":resultsdata[i].units,
+          "toAdd":"Add "+ toAdd.toFixed(1) +" "+ resultsdata[i].units,
+          "notes": nutrientNotes[resultsdata[i].id]
+
+        })
+      }
+    else{}
+  }  
+console.log(output)
+return output
+}
+
+export function DefRow(props){ 
+  return( 
+    <div> 
+    <tr>
+      <td>
+          {props.name} 
+      </td>
+      <td>
+          {props.toAdd}
+      </td>
+    </tr>
+    <tr>
+      <td colSpan={2}>{props.notes}</td>
+    </tr>
+    </div>  
+  );
+}
+
 // use map function to iterate through object, skipping items with no nutrient requirements
 
 function TransformDataForDisplay(user_data, names, units,rec_intake, SUL){
@@ -96,56 +137,38 @@ function warningStatements (resultsdata){
     return output
   }
 
-function glucosamineCheck(user_data){
-  const output=[]
-  let recGlucosamine
-  if ( !("glucosamine" in user_data.diet) == true){
-    return output
+  function glucosamineCheck(user_data) {
+    const output = [];
+    let recGlucosamine;
+    
+    if (!("glucosamine" in user_data.diet)) {
+      return output;
+    }
+    
+    const weight = user_data.pet.metricweight;
+    
+    if (weight <= 9) {
+      recGlucosamine = "250 - 500 mg per day.";
+    } else if (weight <= 19) {
+      recGlucosamine = "500 - 1,000 mg per day.";
+    } else if (weight <= 45) {
+      recGlucosamine = "1,000 - 1,500 mg per day.";
+    } else {
+      recGlucosamine = "at least 1,500 mg per day.";
+    }
+    
+    let glucosamineIntake = (user_data.diet.amountAF / 1000) * user_data.diet.glucosamine;
+    let glucosamineStatement = 
+      `Your pet food provides ${glucosamineIntake} mg of glucosamine per day.\r\n\r\n` +
+      `For ${user_data.pet.name}'s size, the amount recommended for joint health is ${recGlucosamine} ` +
+      "Due to mixed results in clinical trials, the benefits of glucosamine cannot be confirmed.";
+    
+    output.push(glucosamineStatement);
+    return output;
   }
-  else{
-    if (user_data.pet.metricweight <= 9){
-      recGlucosamine = "250 - 500 mg per day. "
-    }
-    else if (user_data.pet.metricweight > 9 &&  user_data.pet.metricweight <= 19 ){
-      recGlucosamine = "500 - 1,000 mg per day. "
-    }
-    else if (user_data.pet.metricweight > 19 &&  user_data.pet.metricweight <= 45 ){
-      recGlucosamine = "1,000 - 1,500 mg per day. "
-    }
-    else if (user_data.pet.metricweight <= 45){
-      recGlucosamine = "at least 1,500 mg per day. "
-    }
-    let glucosamineIntake = user_data.diet.amountAF/1000*user_data.diet.glucosamine  
-    let glucosamineSatement = "Your pet food provides " + glucosamineIntake + " mg  of glucosamine per day. For " + user_data.pet.name +"'s size, the amount recommended for joint health is " + recGlucosamine + "Due to mixed results in clinical trials, the benefits of glucosamine cannot be confirmed."
-    output.push(glucosamineSatement);
-    return output
-  }
-}
 
 
-function deficiencySolutions (resultsdata, weblinks){
-  const output=[]
-  let toAdd
-  let key
-  for(var i=0;i<resultsdata.length;i++){
-    if (resultsdata[i].def === 'Y'){
-        toAdd = (resultsdata[i].req - resultsdata[i].intake)*1.25
-         
-        output.push({
-          "name":resultsdata[i].name,
-          "units":resultsdata[i].units,
-          "toAdd": toAdd,
-          "webLinks": weblinks[resultsdata[i].id]
 
-        })
-      }
-    else{}
-  }  
-console.log(output)
-return output
-
-
-}
 
 //Calculate the range for ME_Req
 
@@ -209,10 +232,10 @@ function determinePronoun (sex){
   const resultsdata = TransformDataForDisplay(user_data, names, units,rec_intake,SUL)
   const arrayWarningStatements = warningStatements(resultsdata)
   const glucosamineSatement = glucosamineCheck(user_data);
-  const listDef = deficiencySolutions(resultsdata, weblinks)
+  const listDef = deficiencySolutions(resultsdata, nutrientNotes)
   
   /* Mapping the warningStatements into a new array of JSX nodes as arrayDataItems */
-  const arrayToRender = arrayWarningStatements.map((warning) => <li>{warning}</li>);
+  const arrayToRender = arrayWarningStatements.map((warning) => <div style={{marginBottom:"5px"}}>{warning}</div>);
 
   const MEReqValue = ME_Req(user_data.pet.metricweight, user_data.pet.factor);
   const MEIntakeValue = ME_Intake(user_data.diet.kcal, user_data.diet.amountAFmetric);
@@ -230,14 +253,14 @@ function determinePronoun (sex){
       <div className="first-header"> 
         {user_data.pet.name}'s Results
       </div>  
-      <div> 
-       <strong style={{fontSize:"18px", marginBottom:"10px"}}> Energy Requirements</strong>
+      <div className="third-header"> 
+       Energy Requirements
       </div>
       <div style={{paddingTop:"18px"}}>
         <MEVisualization MEReq={MEReqValue} MEIntake={MEIntakeValue} />   
       </div>
       <div style={{marginTop:"15px",marginBottom:"15px", textAlign:"left"}}>
-        The red bar shows {user_data.pet.name}'s estimated energy requirement range, while the red marker indicates {pronoun} <b>current </b>enegy intake ({MEIntakeValue} kcal).
+        The red bar shows the range of {user_data.pet.name}'s predicted energy requirements, while the red marker indicates {pronoun} <b>current </b>enegy intake of {MEIntakeValue} kcal).
       <br></br><br></br>
       Predictions of energy requirements can be innacurate. 
       Use body condition scoring to determine if your pet's caloric intake needs to be adjusted. 
@@ -245,7 +268,7 @@ function determinePronoun (sex){
       <div style={{fontSize:"18px", paddingTop:"20px"}}> 
        <strong > Nutrient Requirements</strong>
       </div>
-      <table>
+      <table class="table1">
         <thead>
           <tr>
             <th>Nutrient</th>
@@ -257,7 +280,7 @@ function determinePronoun (sex){
         </thead>
         <tbody>
           {resultsdata.map(
-            (arr_item) => <NutrientRow 
+            (arr_item) => <NutrientRow
                             key={arr_item.name} 
                             name={arr_item.name}
                             units={arr_item.units}
@@ -269,20 +292,35 @@ function determinePronoun (sex){
         </tbody>
       </table>
       <br></br>
-      {arrayToRender.length > 0 ? <h2 >WARNING </h2>: null}
+      {arrayToRender.length > 0 ? <p className="third-header" >WARNING </p>: null}
         {/* returning arraWarningStatements wrapped in <ul> */}
-       <ul className="flex-outer" style={{ marginBottom:"15px"}} >{arrayToRender}</ul>
+       <div className="results-text" >{arrayToRender}</div>
 
-      {glucosamineSatement.length > 0 ? <p style={{fontSize:"18px", marginBottom:"10px", fontWeight:"bold"}}> Joint Health Ingredients </p>: null}
-        <div>{glucosamineSatement}</div>
+      {glucosamineSatement.length > 0 ? <p className="third-header"> Joint Health Ingredients </p>: null}
+        <div className="results-text">{glucosamineSatement}</div>
 
-      {resultsdata.some(item => item.def === 'Y') ? <p style={{fontSize:"18px", marginBottom:"10px", fontWeight:"bold"}}> Correct Deficiencies </p>: null}
+      {resultsdata.some(item => item.def === 'Y') ? 
+        <p> <b className="third-header">Correct Deficiencies </b>
+        <table className="table2">
+        <tbody>
+          {listDef.map(
+            (arr_item) => <DefRow
+                            key={arr_item.name} 
+                            name={arr_item.name}
+                            toAdd ={arr_item.toAdd}
+                            notes ={arr_item.notes}
+                          />)}   
+        </tbody>
+      </table>
+      </p>
+        : null}
+      {/* <div>{listDef}</div> */}
+
    
       <div style={{fontSize:"12px", marginTop:"10px"}}>
         This calculator is designed as a helpful tool for pet owners and should not be interpreted as nutritional advice. 
         Always consult with a pet nutritionist or veterinarian before making any changes to your dog's diet. 
       </div>
-
     </div>
   );
 }
