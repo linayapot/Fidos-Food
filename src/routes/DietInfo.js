@@ -5,7 +5,7 @@ import {unitconv} from "../math.js";
 import React, { useState,useEffect } from 'react';
 
 
-async function Diet_Form_Callback({ request}) {
+async function Diet_Form_Callback({request}) {
   const formData = await request.formData();
   const formDataObj = {};
   formData.forEach((value, key) => formDataObj[key] = value);
@@ -18,7 +18,7 @@ export default function DietInfo() {
       
   const [inputFields, setInputFields] = useState([]);
 
-  //creates the array from changes in the select drop down menue
+  //updatesthe local forage object from user changes in the form
   const handleSelectChange = (e) => {
     const selectedOption = e.target.options[e.target.selectedIndex];
     const selectedValue = selectedOption.value;
@@ -43,7 +43,7 @@ export default function DietInfo() {
     localforage.setItem("selectedOptions", newInputFields);
   };
 
-  // to allow for previously generated inputs to be re-added upon going back
+  // to allow for the user's previously entered into to auto-generated up navigating back to previous page
   const [formData, setFormData] = useState({
     amountAF: ' 300' ,
     unit: 'g',

@@ -247,9 +247,9 @@ table.table2 tr{
   text-align:left
 }
 
-td:nth-child(1){
+/* td:nth-child(1){
   width:8px;
-}
+} */
 
 table.table2 td:last-child { width: 100%; }
 
