@@ -88,16 +88,16 @@ function TransformDataForDisplay(user_data, names, units,rec_intake, SUL){
         let req= rec_intake[key]*mbw
         let max= SUL[key]*mbw
         if (units[key]=='g'){
-          intake = user_data.diet.amountAF*(user_data.diet[key]/100)
+          intake = user_data.diet.amountAFmetric*(user_data.diet[key]/100)
           }
         else if (units[key]== 'mg'){
-          intake =(user_data.diet.amountAF/1000)*user_data.diet[key]              
+          intake =(user_data.diet.amountAFmetric/1000)*user_data.diet[key]              
         }
         else if (units[key]== 'μg'){ 
-          intake =(user_data.diet.amountAF*user_data.diet[key])            
+          intake =(user_data.diet.amountAFmetric*user_data.diet[key])            
         }
         else if (units[key]== 'RE'){
-          intake =((user_data.diet.amountAF/1000)*user_data.diet[key])/3.33           
+          intake =((user_data.diet.amountAFmetric/1000)*user_data.diet[key])/3.33           
         }
 
         if (intake/req < 1){
@@ -146,26 +146,25 @@ function warningStatements (resultsdata){
     }
     
     const weight = user_data.pet.metricweight;
-    
-    if (weight <= 9) {
-      recGlucosamine = "250 - 500 mg per day.";
-    } else if (weight <= 19) {
-      recGlucosamine = "500 - 1,000 mg per day.";
-    } else if (weight <= 45) {
-      recGlucosamine = "1,000 - 1,500 mg per day.";
-    } else {
-      recGlucosamine = "at least 1,500 mg per day.";
+
+    if (user_data.pet.metricweight <= 9){
+      recGlucosamine = "250 - 500 mg per day. "
     }
-    
-    let glucosamineIntake = (user_data.diet.amountAF / 1000) * user_data.diet.glucosamine;
-    let glucosamineStatement = 
-      `Your pet food provides ${glucosamineIntake} mg of glucosamine per day.\r\n\r\n` +
-      `For ${user_data.pet.name}'s size, the amount recommended for joint health is ${recGlucosamine} ` +
-      "Due to mixed results in clinical trials, the benefits of glucosamine cannot be confirmed.";
-    
-    output.push(glucosamineStatement);
-    return output;
+    else if (user_data.pet.metricweight > 9 &&  user_data.pet.metricweight <= 19 ){
+      recGlucosamine = "500 - 1,000 mg per day. "
+    }
+    else if (user_data.pet.metricweight > 19 &&  user_data.pet.metricweight <= 45 ){
+      recGlucosamine = "1,000 - 1,500 mg per day. "
+    }
+    else if (user_data.pet.metricweight <= 45){
+      recGlucosamine = "at least 1,500 mg per day. "
+    }
+    let glucosamineIntake = user_data.diet.amountAFmetric/1000*user_data.diet.glucosamine  
+    let glucosamineSatement = "Your pet food provides " + glucosamineIntake + " mg  of glucosamine per day. For " + user_data.pet.name +"'s size, the amount recommended for joint health is " + recGlucosamine + "Due to mixed results in clinical trials, the benefits of glucosamine cannot be confirmed."
+    output.push(glucosamineSatement);
+    return output
   }
+}
 
 
 
