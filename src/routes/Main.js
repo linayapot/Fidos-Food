@@ -9,12 +9,12 @@ function App () {
       <div className='second-header'>
         How is your dogs nutrition?
       </div>
-      <p>
+      <p style ={{textAlign:"left"}}>
         <br/>
-        This simple calculator helps determine if your dog's nutrient needs are being met by their current dog food.
+        This simple calculator helps determine if your dog's nutrient needs are being met by their dog food.
         <br></br>
         <br></br>
-         Weigh your dog's <b>daily</b> food intake using a kitchen scale. 
+         Before starting, weigh your dog's <b>daily</b> food intake using a kitchen scale. 
          <br></br>
          <br></br>
          Nutrient requirements are based on the 2006 National Research Council's "Nutrient Requirements of Cats and Dogs."

@@ -3,6 +3,6 @@ export const weblinks={
 }
 
 export const nutrientNotes={
-    "Se": ["Provide organic sources of selenium, like selenium yeast or selenium methionine", "Excess selenium can cause toxicity. Only add under with the guidances of your vet"],
+    "Se": [<li>Provide organic sources of selenium, like selenium yeast or selenium methionine</li>, <li>Excess selenium can cause toxicity. Only add under the guidance of your vet</li>],
     "Cu": ["Provide organic sources of copper"]
 }
