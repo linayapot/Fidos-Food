@@ -232,7 +232,7 @@ function determinePronoun (sex){
   const arrayWarningStatements = warningStatements(resultsdata)
   const glucosamineSatement = glucosamineCheck(user_data);
   const listDef = deficiencySolutions(resultsdata, nutrientNotes)
-  
+
   /* Mapping the warningStatements into a new array of JSX nodes as arrayDataItems */
   const arrayToRender = arrayWarningStatements.map((warning) => <div style={{marginBottom:"5px"}}>{warning}</div>);
 
